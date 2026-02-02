@@ -66,7 +66,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-50 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs font-medium text-gray-400">
-            © {new Date().getFullYear()} Thriven. Built with <span className="text-indigo-500 font-bold">Next.js</span> & <span className="text-indigo-500 font-bold">MongoDB</span>.
+            © {new Date().getFullYear()} Thriven. developed by <span className="text-indigo-500 font-bold">anbu</span> before built with <span className="text-indigo-500 font-bold">Next.js</span> & <span className="text-indigo-500 font-bold">MongoDB</span>.
           </p>
           <div className="flex items-center gap-4">
              <div className="flex items-center gap-2">

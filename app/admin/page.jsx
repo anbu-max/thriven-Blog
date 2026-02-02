@@ -15,6 +15,7 @@ const AdminPage = () => {
   const [loading, setLoading] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const [editId, setEditId] = useState(null);
+  const descriptionRef = React.useRef(null);
   
   // States for Add/Edit Blog
   const [image, setImage] = useState(false);
@@ -129,7 +130,9 @@ const AdminPage = () => {
   };
 
   const insertTag = (tag) => {
-    const textarea = document.getElementsByName("description")[0];
+    const textarea = descriptionRef.current;
+    if (!textarea) return;
+
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const text = data.description;
@@ -154,6 +157,44 @@ const AdminPage = () => {
         textarea.focus();
         textarea.setSelectionRange(start + formattedText.length, start + formattedText.length);
     }, 10);
+  };
+
+  const handleDescImageUpload = async (e) => {
+    const textarea = descriptionRef.current;
+    if (!textarea) return;
+
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    setLoading(true);
+    const uploadedUrls = [];
+
+    try {
+        for (const file of files) {
+            const formData = new FormData();
+            formData.append("image", file);
+            const response = await axios.post("/api/upload", formData);
+            if (response.data.url) {
+                uploadedUrls.push(response.data.url);
+            }
+        }
+
+        if (uploadedUrls.length > 0) {
+            const start = textarea.selectionStart;
+            const text = data.description;
+            const before = text.substring(0, start);
+            const after = text.substring(start);
+            
+            const imagesHtml = uploadedUrls.map(url => `\n<img src="${url}" alt="blog image" className="rounded-2xl my-6 w-full shadow-lg" />\n`).join("");
+            setData({ ...data, description: before + imagesHtml + after });
+            toast.success(`${uploadedUrls.length} images uploaded and inserted`);
+        }
+    } catch (error) {
+        toast.error("Failed to upload description images");
+        console.error(error);
+    } finally {
+        setLoading(false);
+    }
   };
 
   return (
@@ -225,6 +266,7 @@ const AdminPage = () => {
                 <div className="lg:col-span-1 space-y-8">
                     <div>
                         <p className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Blog Thumbnail</p>
+                        <input type="file" id="image" hidden onChange={(e) => setImage(e.target.files[0])} />
                         <div className="relative group/img max-w-[280px]">
                         <label htmlFor="image" className="cursor-pointer">
                             <div className="w-full aspect-[4/3] bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center hover:border-black transition-colors overflow-hidden">
@@ -271,23 +313,41 @@ const AdminPage = () => {
                     </div>
 
                     <div>
-                        <div className="flex justify-between items-center mb-2">
-                        <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Article Body</p>
-                        <div className="flex gap-1.5">
-                            {["H3", "Paragraph", "Italic", "List", "Quote"].map((tag) => (
-                            <button
-                                key={tag}
-                                type="button"
-                                onClick={() => insertTag(tag)}
-                                className="text-[9px] bg-gray-100 px-2.5 py-1.5 rounded-lg hover:bg-black hover:text-white font-black uppercase transition-all shadow-sm"
-                            >
-                                {tag}
-                            </button>
-                            ))}
-                        </div>
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                            <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Article Body</p>
+                            <div className="flex flex-wrap gap-2 bg-gray-100/50 p-1.5 rounded-xl border border-gray-200/50">
+                                {["H3", "Paragraph", "Italic", "List", "Quote"].map((tag) => (
+                                    <button
+                                        key={tag}
+                                        type="button"
+                                        onClick={() => insertTag(tag)}
+                                        className="px-3 py-1.5 text-[10px] font-black uppercase bg-white border border-gray-200 rounded-lg hover:border-black transition-all shadow-sm active:scale-95"
+                                    >
+                                        {tag}
+                                    </button>
+                                ))}
+                                <div className="w-px h-6 bg-gray-300 mx-1 hidden xs:block"></div>
+                                <button
+                                    type="button"
+                                    onClick={() => document.getElementById('descImageInput').click()}
+                                    className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-black uppercase bg-indigo-600 text-white rounded-lg hover:bg-black transition-all shadow-md active:scale-95"
+                                >
+                                    <Upload size={12} />
+                                    Add Images
+                                </button>
+                                <input 
+                                    type="file" 
+                                    id="descImageInput" 
+                                    hidden 
+                                    multiple 
+                                    accept="image/*"
+                                    onChange={handleDescImageUpload} 
+                                />
+                            </div>
                         </div>
                         <textarea
                             name="description"
+                            ref={descriptionRef}
                             onChange={onChangeHandler}
                             value={data.description}
                             className="w-full px-5 py-5 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-black/5 transition-all min-h-[350px] font-mono text-sm leading-relaxed"

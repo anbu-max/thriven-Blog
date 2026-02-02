@@ -42,16 +42,20 @@ export async function POST(request) {
     const blogImgName = `${timestamp}_${image.name.replace(/\s+/g, '_')}`;
     const blogImgBuffer = Buffer.from(await image.arrayBuffer());
     const publicDir = path.join(process.cwd(), "public");
-    await writeFile(path.join(publicDir, blogImgName), blogImgBuffer);
-    const blogImgUrl = `/${blogImgName}`;
+    const blogUploadDir = path.join(publicDir, "uploads", "blogs");
+    await mkdir(blogUploadDir, { recursive: true });
+    await writeFile(path.join(blogUploadDir, blogImgName), blogImgBuffer);
+    const blogImgUrl = `/uploads/blogs/${blogImgName}`;
 
     // Process Author Image if uploaded as file
     let finalAuthorImg = authorImg || "/profile_icon.png";
     if (authorImgFile && typeof authorImgFile !== "string") {
         const authorImgName = `${timestamp}_author_${authorImgFile.name.replace(/\s+/g, '_')}`;
         const authorImgBuffer = Buffer.from(await authorImgFile.arrayBuffer());
-        await writeFile(path.join(publicDir, authorImgName), authorImgBuffer);
-        finalAuthorImg = `/${authorImgName}`;
+        const authorUploadDir = path.join(publicDir, "uploads", "authors");
+        await mkdir(authorUploadDir, { recursive: true });
+        await writeFile(path.join(authorUploadDir, authorImgName), authorImgBuffer);
+        finalAuthorImg = `/uploads/authors/${authorImgName}`;
     }
 
     // save to Mongo
@@ -125,8 +129,10 @@ export async function PUT(request) {
             const blogImgName = `${timestamp}_${image.name.replace(/\s+/g, '_')}`;
             const blogImgBuffer = Buffer.from(await image.arrayBuffer());
             const publicDir = path.join(process.cwd(), "public");
-            await writeFile(path.join(publicDir, blogImgName), blogImgBuffer);
-            updateData.image = `/${blogImgName}`;
+            const blogUploadDir = path.join(publicDir, "uploads", "blogs");
+            await mkdir(blogUploadDir, { recursive: true });
+            await writeFile(path.join(blogUploadDir, blogImgName), blogImgBuffer);
+            updateData.image = `/uploads/blogs/${blogImgName}`;
         }
 
         // Handle Author Image Update
@@ -135,8 +141,10 @@ export async function PUT(request) {
             const authorImgName = `${timestamp}_author_${authorImgFile.name.replace(/\s+/g, '_')}`;
             const authorImgBuffer = Buffer.from(await authorImgFile.arrayBuffer());
             const publicDir = path.join(process.cwd(), "public");
-            await writeFile(path.join(publicDir, authorImgName), authorImgBuffer);
-            updateData.authorImg = `/${authorImgName}`;
+            const authorUploadDir = path.join(publicDir, "uploads", "authors");
+            await mkdir(authorUploadDir, { recursive: true });
+            await writeFile(path.join(authorUploadDir, authorImgName), authorImgBuffer);
+            updateData.authorImg = `/uploads/authors/${authorImgName}`;
         } else if (authorImg) {
             updateData.authorImg = authorImg;
         }

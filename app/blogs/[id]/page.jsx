@@ -54,11 +54,11 @@ const Page = ({ params }) => {
         <div className="max-w-7xl mx-auto py-0.5 px-5 md:px-10 lg:px-16 flex justify-between items-center">
           <Link href='/'>
             <Image
-              src={assets.logo}
+              src="/logo.png"
               width={75}
               height={25}
               alt="Thriven Logo"
-              className="w-[65px] sm:w-[75px]"
+              className="w-[35px] sm:w-[50px] h-auto"
             />
           </Link>
           <Link href='/'>
