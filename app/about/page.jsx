@@ -32,7 +32,7 @@ const AboutPage = () => {
             <h1 className="text-4xl sm:text-6xl font-extrabold text-gray-900 font-outfit tracking-tight mb-6">
               Hi, I'm <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">Anbu Selvan</span>
             </h1>
-            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto font-outfit">
+            <p className="text-xl sm:text-2xl text-gray-600 leading-relaxed max-w-2xl mx-auto font-outfit">
               A computer science enthusiast dedicated to pushing the boundaries of AI technology. I blend high-level problem solving with modern software architecture to create meaningful digital experiences.
             </p>
           </motion.div>
@@ -53,7 +53,7 @@ const AboutPage = () => {
                 {skill.icon}
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">{skill.name}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{skill.desc}</p>
+              <p className="text-gray-500 text-base leading-relaxed">{skill.desc}</p>
             </motion.div>
           ))}
         </section>
@@ -66,7 +66,7 @@ const AboutPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-2xl font-bold text-gray-900 mb-6">The Journey</h2>
-            <div className="space-y-6 text-gray-600 leading-relaxed font-outfit">
+            <div className="space-y-6 text-gray-600 text-base sm:text-lg leading-relaxed font-outfit">
               <p>
                 As a final-year Computer Science and Engineering student, my academic path has been more than just learning to code—it's been about learning how to think. From mastering the intricacies of Data Structures and Algorithms to exploring the vast horizons of Artificial Intelligence, I've developed a relentless curiosity for how technology can bridge the gap between imagination and reality.
               </p>
@@ -81,7 +81,7 @@ const AboutPage = () => {
         <section className="text-center bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-10 sm:p-16 text-white overflow-hidden relative">
             <div className="relative z-10">
                 <h2 className="text-3xl font-bold mb-6">Let's build the future together.</h2>
-                <p className="text-blue-100 mb-10 max-w-lg mx-auto">
+                <p className="text-blue-100 text-base sm:text-lg mb-10 max-w-lg mx-auto">
                     I'm currently looking for opportunities to contribute to innovative AI and software engineering teams. If you're working on something cool, let's talk.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
