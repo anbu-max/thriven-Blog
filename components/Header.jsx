@@ -9,14 +9,14 @@ const Header = ({ showHero = true }) => {
     <>
       {/* Navigation Bar */}
       <header className="sticky top-0 z-[100] bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-7xl mx-auto py-4 px-5 md:px-10 lg:px-16 flex justify-between items-center">
-          {/* Brand Logo */}
+        <div className="max-w-[1600px] mx-auto py-5 px-6 md:px-12 lg:px-24 flex justify-between items-center">
+          {/* Brand Logo - Left Aligned */}
           <Link href="/">
-            <div className="flex items-center gap-2.5 py-1 origin-left">
+            <div className="flex items-center gap-3 py-1 origin-left">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                className="flex items-center justify-center"
+                className="flex items-center justify-center p-2 rounded-xl bg-gray-50 border border-gray-100"
               >
                 <Image
                   src="/logo.png"
@@ -32,21 +32,21 @@ const Header = ({ showHero = true }) => {
             </div>
           </Link>
           
-          {/* Navigation & Action */}
-          <div className="flex items-center gap-6 sm:gap-10">
-              <nav className="hidden sm:flex items-center gap-6 text-sm font-bold text-gray-600 uppercase tracking-wider">
-                  <Link href="/" className="hover:text-black transition-colors">Home</Link>
-                  <Link href="/about" className="hover:text-black transition-colors">About Me</Link>
+          {/* Navigation & Action - Right Aligned */}
+          <div className="flex items-center gap-8 sm:gap-12">
+              <nav className="hidden md:flex items-center gap-10 text-sm font-bold text-gray-600 uppercase tracking-widest">
+                  <Link href="/" className="hover:text-black transition-all hover:translate-y-[-1px] active:scale-95">Home</Link>
+                  <Link href="/about" className="hover:text-black transition-all hover:translate-y-[-1px] active:scale-95">About Me</Link>
               </nav>
 
               <Link href="/login">
                   <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="flex items-center gap-2 text-sm font-bold py-2 px-5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-indigo-100 transition-all duration-300 uppercase tracking-wider"
+                      whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(79, 70, 229, 0.2)" }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center gap-2 text-sm font-bold py-3 px-8 rounded-2xl bg-gray-900 text-white shadow-xl shadow-gray-200 transition-all duration-300 uppercase tracking-widest"
                   >
                       Login
-                      <ArrowRight size={16} />
+                      <ArrowRight size={18} />
                   </motion.button>
               </Link>
           </div>

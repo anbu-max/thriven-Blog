@@ -39,7 +39,7 @@ const BlogList = () => {
     }
 
     return (
-        <div className="min-h-[600px] px-5 sm:px-10 lg:px-16">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-24 min-h-[600px]">
             <div className='flex justify-center gap-4 my-10 flex-wrap'>
                 {categories.map((category) => (
                     <button

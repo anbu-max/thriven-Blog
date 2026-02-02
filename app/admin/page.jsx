@@ -198,21 +198,21 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10 px-5">
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10 px-6 md:px-12 lg:px-24">
       <ToastContainer theme="dark" />
       
       {/* Navbar Header */}
-      <div className="w-full max-w-5xl flex justify-between items-center mb-8 bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-        <Link href="/" className="flex items-center gap-2 text-gray-500 hover:text-black transition-colors font-medium text-sm">
-          <ArrowLeft size={16} />
+      <div className="w-full max-w-[1600px] flex justify-between items-center mb-12 bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100">
+        <Link href="/" className="flex items-center gap-2 text-gray-500 hover:text-black transition-all font-bold text-sm uppercase tracking-widest">
+          <ArrowLeft size={18} />
           Site Home
         </Link>
-        <div className="flex items-center gap-6">
-            <h1 className="text-xl font-bold font-outfit hidden sm:block">Admin Console</h1>
+        <div className="flex items-center gap-8">
+            <h1 className="text-2xl font-black font-outfit hidden sm:block tracking-tight text-gray-900">Admin Console</h1>
             <div className="h-6 w-[1px] bg-gray-200 hidden sm:block"></div>
             <button 
                 onClick={handleLogout}
-                className="text-[10px] font-bold text-red-500 hover:bg-red-50 px-3 py-1.5 rounded-lg border border-red-100 transition-colors uppercase tracking-widest"
+                className="text-xs font-black text-white bg-gray-900 px-6 py-2.5 rounded-xl hover:bg-black transition-all uppercase tracking-widest shadow-xl shadow-gray-200"
             >
                 Logout
             </button>
@@ -265,7 +265,7 @@ const AdminPage = () => {
                 {/* Left Column: Image Uploads */}
                 <div className="lg:col-span-1 space-y-8">
                     <div>
-                        <p className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Blog Thumbnail</p>
+                        <p className="text-base font-bold uppercase tracking-widest text-gray-400 mb-4">Blog Thumbnail</p>
                         <input type="file" id="image" hidden onChange={(e) => setImage(e.target.files[0])} />
                         <div className="relative group/img max-w-[280px]">
                         <label htmlFor="image" className="cursor-pointer">
@@ -287,7 +287,7 @@ const AdminPage = () => {
                     </div>
 
                     <div>
-                        <p className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Author Profile</p>
+                        <p className="text-base font-bold uppercase tracking-widest text-gray-400 mb-4">Author Profile</p>
                         <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-100">
                             <div className="w-16 h-16 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden border-2 border-white shadow-sm">
                                 {authorImgFile ? (
@@ -308,13 +308,13 @@ const AdminPage = () => {
                 {/* Right Column: Content */}
                 <div className="lg:col-span-2 space-y-6">
                     <div>
-                        <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Topic Heading</p>
-                        <input name="title" onChange={onChangeHandler} value={data.title} className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-black/5 transition-all text-xl font-bold" type="text" placeholder="Your blog title..." required />
+                        <p className="text-lg font-bold text-gray-400 uppercase tracking-widest mb-2">Topic Heading</p>
+                        <input name="title" onChange={onChangeHandler} value={data.title} className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-black/5 transition-all text-2xl font-bold" type="text" placeholder="Your blog title..." required />
                     </div>
 
                     <div>
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-                            <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Article Body</p>
+                             <p className="text-lg font-bold text-gray-400 uppercase tracking-widest">Article Body</p>
                             <div className="flex flex-wrap gap-2 bg-gray-100/50 p-1.5 rounded-xl border border-gray-200/50">
                                 {["H3", "Paragraph", "Italic", "List", "Quote"].map((tag) => (
                                     <button
@@ -350,7 +350,7 @@ const AdminPage = () => {
                             ref={descriptionRef}
                             onChange={onChangeHandler}
                             value={data.description}
-                            className="w-full px-5 py-5 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-black/5 transition-all min-h-[350px] font-mono text-sm leading-relaxed"
+                            className="w-full px-5 py-5 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-black/5 transition-all min-h-[350px] font-mono text-base leading-relaxed"
                             placeholder="Write your story... Use the toolbar above to add styles."
                             required
                         />
@@ -358,7 +358,7 @@ const AdminPage = () => {
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                        <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Category</p>
+                        <p className="text-base font-bold text-gray-400 uppercase tracking-widest mb-2">Category</p>
                         <select name="category" onChange={onChangeHandler} value={data.category} className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none transition-all cursor-pointer font-bold text-sm">
                             <option value="Startup">Startup</option>
                             <option value="Technology">Technology</option>
@@ -366,7 +366,7 @@ const AdminPage = () => {
                         </select>
                         </div>
                         <div>
-                        <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Author Name</p>
+                        <p className="text-base font-bold text-gray-400 uppercase tracking-widest mb-2">Author Name</p>
                         <input name="author" onChange={onChangeHandler} value={data.author} className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none transition-all font-bold text-sm" type="text" placeholder="Your Name" required />
                         </div>
                     </div>
