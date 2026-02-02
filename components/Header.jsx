@@ -1,4 +1,3 @@
-import { assets } from "../Assets/assets";
 import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
@@ -13,14 +12,23 @@ const Header = ({ showHero = true }) => {
         <div className="max-w-7xl mx-auto py-0.5 px-5 md:px-10 lg:px-16 flex justify-between items-center">
           {/* Brand Logo */}
           <Link href="/">
-            <div className="flex items-center gap-2">
-              <Image
-                src={assets.logo}
-                alt="Thriven Logo"
-                width={75}
-                height={25}
-                className="w-[65px] sm:w-[75px]"
-              />
+            <div className="flex items-center gap-2.5 py-1 origin-left">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                className="flex items-center justify-center"
+              >
+                <Image
+                  src="/logo.png"
+                  alt="Thriven Logo"
+                  width={60}
+                  height={20}
+                  className="w-[30px] sm:w-[40px] h-auto"
+                />
+              </motion.div>
+              <span className="text-lg sm:text-xl font-black font-outfit tracking-tighter text-gray-900 select-none">
+                THRIVEN<span className="text-indigo-600">.</span>
+              </span>
             </div>
           </Link>
           

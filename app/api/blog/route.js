@@ -27,6 +27,7 @@ export async function POST(request) {
     const author = formData.get("author");
     const authorImg = formData.get("authorImg");
     const image = formData.get("image");
+    const authorImgFile = formData.get("authorImgFile");
 
     if (!title || !description || !category || !author) {
         return NextResponse.json({ error: "Missing required fields (Title, Description, Category, or Author)" }, { status: 400 });
@@ -36,23 +37,22 @@ export async function POST(request) {
       return NextResponse.json({ error: "Blog image file is required" }, { status: 400 });
     }
 
-    // Prepare filename and path
+    // Process Blog Image
     const timestamp = Date.now();
-    const fileName = `${timestamp}_${image.name.replace(/\s+/g, '_')}`;
-    const buffer = Buffer.from(await image.arrayBuffer());
-    
-    // Ensure public folder exists and use absolute path
+    const blogImgName = `${timestamp}_${image.name.replace(/\s+/g, '_')}`;
+    const blogImgBuffer = Buffer.from(await image.arrayBuffer());
     const publicDir = path.join(process.cwd(), "public");
-    const filePath = path.join(publicDir, fileName);
-    
-    try {
-        await writeFile(filePath, buffer);
-    } catch (fsErr) {
-        console.error("File System Error:", fsErr);
-        return NextResponse.json({ error: "System failed to save image to public folder. Check folder permissions." }, { status: 500 });
-    }
+    await writeFile(path.join(publicDir, blogImgName), blogImgBuffer);
+    const blogImgUrl = `/${blogImgName}`;
 
-    const imgUrl = `/${fileName}`;
+    // Process Author Image if uploaded as file
+    let finalAuthorImg = authorImg || "/profile_icon.png";
+    if (authorImgFile && typeof authorImgFile !== "string") {
+        const authorImgName = `${timestamp}_author_${authorImgFile.name.replace(/\s+/g, '_')}`;
+        const authorImgBuffer = Buffer.from(await authorImgFile.arrayBuffer());
+        await writeFile(path.join(publicDir, authorImgName), authorImgBuffer);
+        finalAuthorImg = `/${authorImgName}`;
+    }
 
     // save to Mongo
     const blogData = {
@@ -60,8 +60,8 @@ export async function POST(request) {
       description,
       category,
       author,
-      authorImg: authorImg || "/profile_icon.png",
-      image: imgUrl,
+      authorImg: finalAuthorImg,
+      image: blogImgUrl,
     };
     
     const newBlog = new BlogModel(blogData);
@@ -80,4 +80,71 @@ export async function POST(request) {
   }
 }
 
+export async function DELETE(request) {
+    try {
+        await ConnectDB();
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get('id');
 
+        if (!id) {
+            return NextResponse.json({ error: "Blog ID is required" }, { status: 400 });
+        }
+
+        await BlogModel.findByIdAndDelete(id);
+        return NextResponse.json({ msg: "Blog Deleted Successfully!" });
+    } catch (error) {
+        console.error("DELETE API Error:", error);
+        return NextResponse.json({ error: "Failed to delete blog" }, { status: 500 });
+    }
+}
+
+
+export async function PUT(request) {
+    try {
+        await ConnectDB();
+        const formData = await request.formData();
+        const id = formData.get("id");
+        const title = formData.get("title");
+        const description = formData.get("description");
+        const category = formData.get("category");
+        const author = formData.get("author");
+        const authorImg = formData.get("authorImg");
+        const image = formData.get("image"); // This could be a file or a string URL
+        const authorImgFile = formData.get("authorImgFile");
+
+        if (!id) return NextResponse.json({ error: "Blog ID is required" }, { status: 400 });
+
+        const blog = await BlogModel.findById(id);
+        if (!blog) return NextResponse.json({ error: "Blog not found" }, { status: 404 });
+
+        const updateData = { title, description, category, author };
+
+        // Handle Thumbnail Update
+        if (image && typeof image !== "string") {
+            const timestamp = Date.now();
+            const blogImgName = `${timestamp}_${image.name.replace(/\s+/g, '_')}`;
+            const blogImgBuffer = Buffer.from(await image.arrayBuffer());
+            const publicDir = path.join(process.cwd(), "public");
+            await writeFile(path.join(publicDir, blogImgName), blogImgBuffer);
+            updateData.image = `/${blogImgName}`;
+        }
+
+        // Handle Author Image Update
+        if (authorImgFile && typeof authorImgFile !== "string") {
+            const timestamp = Date.now();
+            const authorImgName = `${timestamp}_author_${authorImgFile.name.replace(/\s+/g, '_')}`;
+            const authorImgBuffer = Buffer.from(await authorImgFile.arrayBuffer());
+            const publicDir = path.join(process.cwd(), "public");
+            await writeFile(path.join(publicDir, authorImgName), authorImgBuffer);
+            updateData.authorImg = `/${authorImgName}`;
+        } else if (authorImg) {
+            updateData.authorImg = authorImg;
+        }
+
+        await BlogModel.findByIdAndUpdate(id, updateData);
+        return NextResponse.json({ msg: "Blog Updated Successfully!" });
+    } catch (error) {
+        console.error("PUT API Error:", error);
+        return NextResponse.json({ error: "Failed to update blog" }, { status: 500 });
+    }
+}

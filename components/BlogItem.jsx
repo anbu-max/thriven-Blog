@@ -1,4 +1,3 @@
-import { assets } from '@/Assets/assets';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -34,7 +33,7 @@ const BlogItem = ({ title, description, category, image, id }) => {
         </h5>
         
         <p className='mb-4 text-sm text-gray-600 line-clamp-3'>
-          {description}
+          {description.replace(/<[^>]*>?/gm, '')}
         </p>
         
         <div className="mt-auto">
