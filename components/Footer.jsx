@@ -11,11 +11,11 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-white border-t border-gray-100 pt-8 pb-6 px-5 md:px-10 lg:px-16 overflow-hidden">
+    <footer className="relative bg-white border-t border-gray-100 pt-16 pb-12 px-6 md:px-12 lg:px-24 overflow-hidden">
       {/* Decorative background element */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
       
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-[1600px] mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-6">
           {/* Brand Section */}
           <div className="lg:col-span-2">

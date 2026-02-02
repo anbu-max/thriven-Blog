@@ -51,26 +51,36 @@ const Page = ({ params }) => {
     <div className="bg-gray-50 min-h-screen">
       {/* Header / Hero Section */}
       <header className="sticky top-0 z-[100] bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-7xl mx-auto py-0.5 px-5 md:px-10 lg:px-16 flex justify-between items-center">
+        <div className="max-w-[1600px] mx-auto py-5 px-6 md:px-12 lg:px-24 flex justify-between items-center">
           <Link href='/'>
-            <Image
-              src="/logo.png"
-              width={75}
-              height={25}
-              alt="Thriven Logo"
-              className="w-[35px] sm:w-[50px] h-auto"
-            />
-          </Link>
-          <Link href='/'>
-            <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="flex items-center gap-2 text-[11px] font-bold py-1.5 px-4 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-200 hover:shadow-gray-300 transition-all duration-300 uppercase tracking-wider"
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              className="flex items-center justify-center"
             >
-                <ArrowLeft size={14} />
-                Back Home
-            </motion.button>
+              <Image
+                src="/logo.png"
+                width={60}
+                height={20}
+                alt="Thriven Logo"
+                className="w-[35px] sm:w-[50px] h-auto"
+              />
+            </motion.div>
           </Link>
+          
+          <div className="flex items-center gap-8">
+            <span className="hidden sm:block text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Reading Mode</span>
+            <Link href="/">
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 text-sm font-bold py-2.5 px-6 rounded-xl bg-gray-900 text-white shadow-xl shadow-gray-200 transition-all uppercase tracking-widest"
+                >
+                    <ArrowLeft size={16} />
+                    Home
+                </motion.button>
+            </Link>
+          </div>
         </div>
       </header>
       

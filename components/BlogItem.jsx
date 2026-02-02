@@ -12,7 +12,7 @@ const BlogItem = ({ title, description, category, image, id }) => {
       viewport={{ once: true }}
       whileHover={{ y: -5 }}
       transition={{ duration: 0.3 }}
-      className='max-w-[330px] bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full'
+      className='w-full bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col h-full'
     >
       <Link href={`/blogs/${id}`} className="relative h-48 w-full overflow-hidden block">
         <Image 
