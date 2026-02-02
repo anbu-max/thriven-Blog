@@ -16,7 +16,7 @@ const Header = ({ showHero = true }) => {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                className="flex items-center justify-center p-2 rounded-xl bg-gray-50 border border-gray-100"
+                className="flex items-center justify-center p-1"
               >
                 <Image
                   src="/logo.png"
