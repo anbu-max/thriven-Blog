@@ -1,6 +1,5 @@
-import { writeFile, mkdir } from "fs/promises";
+import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
-import path from "path";
 
 export async function POST(request) {
     try {
@@ -11,23 +10,16 @@ export async function POST(request) {
             return NextResponse.json({ error: "No image file provided" }, { status: 400 });
         }
 
-        const timestamp = Date.now();
-        const imageName = `${timestamp}_${image.name.replace(/\s+/g, '_')}`;
-        const imageBuffer = Buffer.from(await image.arrayBuffer());
+        const filename = `${Date.now()}_${image.name.replace(/\s+/g, '_')}`;
         
-        const publicDir = path.join(process.cwd(), "public");
-        const uploadDir = path.join(publicDir, "uploads", "description");
-        
-        // Ensure directory exists
-        await mkdir(uploadDir, { recursive: true });
-        
-        await writeFile(path.join(uploadDir, imageName), imageBuffer);
-        
-        const imageUrl = `/uploads/description/${imageName}`;
+        // Upload to Vercel Blob
+        const blob = await put(`description/${filename}`, image, {
+            access: 'public',
+        });
 
         return NextResponse.json({ 
             msg: "Image uploaded successfully!", 
-            url: imageUrl 
+            url: blob.url 
         });
     } catch (err) {
         console.error("Upload Error:", err);
