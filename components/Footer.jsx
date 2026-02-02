@@ -22,7 +22,7 @@ const Footer = () => {
             <h2 className="text-2xl font-black font-outfit mb-3 tracking-tighter">
               THRIVEN<span className="text-indigo-600">.</span>
             </h2>
-            <p className="text-gray-500 text-sm leading-relaxed max-w-md">
+            <p className="text-gray-500 text-base leading-relaxed max-w-md">
               A space dedicated to sharing thoughts on technology, software engineering, and the creative process. Building things that matter, one line of code at a time.
             </p>
           </div>
