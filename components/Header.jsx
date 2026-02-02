@@ -9,7 +9,7 @@ const Header = ({ showHero = true }) => {
     <>
       {/* Navigation Bar */}
       <header className="sticky top-0 z-[100] bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-7xl mx-auto py-0.5 px-5 md:px-10 lg:px-16 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto py-4 px-5 md:px-10 lg:px-16 flex justify-between items-center">
           {/* Brand Logo */}
           <Link href="/">
             <div className="flex items-center gap-2.5 py-1 origin-left">
@@ -23,10 +23,10 @@ const Header = ({ showHero = true }) => {
                   alt="Thriven Logo"
                   width={60}
                   height={20}
-                  className="w-[30px] sm:w-[40px] h-auto"
+                  className="w-[35px] sm:w-[45px] h-auto"
                 />
               </motion.div>
-              <span className="text-lg sm:text-xl font-black font-outfit tracking-tighter text-gray-900 select-none">
+              <span className="text-xl sm:text-2xl font-black font-outfit tracking-tighter text-gray-900 select-none">
                 THRIVEN<span className="text-indigo-600">.</span>
               </span>
             </div>
@@ -34,7 +34,7 @@ const Header = ({ showHero = true }) => {
           
           {/* Navigation & Action */}
           <div className="flex items-center gap-6 sm:gap-10">
-              <nav className="hidden sm:flex items-center gap-5 text-[11px] font-bold text-gray-600 uppercase tracking-wider">
+              <nav className="hidden sm:flex items-center gap-6 text-sm font-bold text-gray-600 uppercase tracking-wider">
                   <Link href="/" className="hover:text-black transition-colors">Home</Link>
                   <Link href="/about" className="hover:text-black transition-colors">About Me</Link>
               </nav>
@@ -43,10 +43,10 @@ const Header = ({ showHero = true }) => {
                   <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="flex items-center gap-2 text-[11px] font-bold py-1.5 px-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-indigo-100 transition-all duration-300 uppercase tracking-wider"
+                      className="flex items-center gap-2 text-sm font-bold py-2 px-5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-indigo-100 transition-all duration-300 uppercase tracking-wider"
                   >
-                      Admin Login
-                      <ArrowRight size={14} />
+                      Login
+                      <ArrowRight size={16} />
                   </motion.button>
               </Link>
           </div>
