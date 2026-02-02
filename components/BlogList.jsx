@@ -14,15 +14,26 @@ const BlogList = () => {
     const fetchBlogs = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('/api/blog');
-            if (response.data && response.data.blogs && Array.isArray(response.data.blogs) && response.data.blogs.length > 0) {
-                setBlogs(response.data.blogs);
-            } else {
-                console.warn("API returned empty blogs, using static fallback");
-                setBlogs(static_blog_data);
+            // Using absolute URL to prevent any 404 pathing issues
+            const url = `${window.location.origin}/api/blog`;
+            console.log("🌐 Fetching from:", url);
+            
+            const response = await axios.get(url);
+            
+            if (response.data && response.data.blogs) {
+                if (response.data.blogs.length > 0) {
+                    setBlogs(response.data.blogs);
+                } else {
+                    console.warn("API returned empty list, using static fallback. DB Error:", response.data.error);
+                    setBlogs(static_blog_data);
+                }
             }
         } catch (error) {
-            console.error("Axios Fetch Error:", error.message);
+            console.error("Axios Fetch Error Details:", {
+                message: error.message,
+                status: error.response?.status,
+                data: error.response?.data
+            });
             // Even if it fails, we want to show the static blogs
             setBlogs(static_blog_data);
         } finally {

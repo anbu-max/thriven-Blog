@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Upload, Send } from "lucide-react";
+import { ArrowLeft, Upload, Send, X } from "lucide-react";
 
 const AdminPage = () => {
   const router = useRouter();
@@ -51,9 +51,12 @@ const AdminPage = () => {
           author: "Anbu",
           authorImg: "/profile_icon.png",
         });
+      } else if (response.data.error) {
+        toast.error(response.data.error);
       }
     } catch (error) {
-      toast.error("Error creating blog");
+      const errorMsg = error.response?.data?.error || "Error connecting to server";
+      toast.error(errorMsg);
       console.error(error);
     } finally {
       setLoading(false);
@@ -74,7 +77,7 @@ const AdminPage = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10 px-5">
       <ToastContainer theme="dark" />
       
-      <div className="w-full max-w-2xl flex justify-between items-center mb-10">
+      <div className="w-full max-w-4xl flex justify-between items-center mb-10">
         <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors">
           <ArrowLeft size={20} />
           Back to Site
@@ -94,34 +97,46 @@ const AdminPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         onSubmit={onSubmitHandler}
-        className="w-full max-w-2xl bg-white p-8 sm:p-12 rounded-3xl shadow-xl border border-gray-100"
+        className="w-full max-w-4xl bg-white p-8 sm:p-12 rounded-3xl shadow-xl border border-gray-100"
       >
         <p className="text-xl font-semibold mb-6">Upload Blog Thumbnail</p>
-        <label htmlFor="image" className="cursor-pointer group">
-          <div className="w-full aspect-video bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center hover:border-black transition-colors overflow-hidden">
-            {!image ? (
-              <>
-                <Upload size={48} className="text-gray-300 group-hover:text-black transition-colors" />
-                <p className="mt-3 text-gray-400 group-hover:text-black transition-colors font-medium">Click to upload image</p>
-              </>
-            ) : (
-              <Image 
-                src={URL.createObjectURL(image)} 
-                alt="preview" 
-                width={800} 
-                height={450} 
-                className="w-full h-full object-cover" 
-              />
-            )}
-          </div>
-          <input
-            onChange={(e) => setImage(e.target.files[0])}
-            type="file"
-            id="image"
-            hidden
-            required
-          />
-        </label>
+        <div className="relative group/img">
+          <label htmlFor="image" className="cursor-pointer">
+            <div className="w-full aspect-video bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center hover:border-black transition-colors overflow-hidden">
+              {!image ? (
+                <>
+                  <Upload size={48} className="text-gray-300 group-hover:text-black transition-colors" />
+                  <p className="mt-3 text-gray-400 group-hover:text-black transition-colors font-medium">Click to upload image</p>
+                </>
+              ) : (
+                <Image 
+                  src={URL.createObjectURL(image)} 
+                  alt="preview" 
+                  width={1200} 
+                  height={675} 
+                  className="w-full h-full object-cover" 
+                />
+              )}
+            </div>
+          </label>
+          {image && (
+            <button
+              type="button"
+              onClick={() => setImage(false)}
+              className="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full shadow-lg hover:bg-red-600 transition-colors z-10"
+              title="Remove image"
+            >
+              <X size={20} />
+            </button>
+          )}
+        </div>
+        <input
+          onChange={(e) => setImage(e.target.files[0])}
+          type="file"
+          id="image"
+          hidden
+          required
+        />
 
         <div className="mt-10 space-y-6">
           <div>

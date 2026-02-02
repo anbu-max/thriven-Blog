@@ -18,25 +18,8 @@ const Footer = () => {
             <div className="text-center md:text-left">
                 <h2 className="text-xl font-bold font-outfit mb-1">Thriven<span className="text-indigo-500">.</span></h2>
                 <p className="text-gray-400 text-[10px] max-w-sm">
-                    Sharing insights on the intersection of code, design, and the digital future.
+                    Final year CS student & AI enthusiast. Sharing insights on Data Structures, Algorithms, and the future of intelligent systems.
                 </p>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-4">
-                {socialLinks.map((link, index) => (
-                    <motion.a
-                        key={index}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ y: -2 }}
-                        className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors group"
-                        title={link.label}
-                    >
-                        {React.cloneElement(link.icon, { size: 16 })}
-                        <span className="text-[10px] font-semibold uppercase tracking-widest hidden sm:inline">{link.label}</span>
-                    </motion.a>
-                ))}
             </div>
         </div>
 
