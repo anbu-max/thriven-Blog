@@ -26,7 +26,7 @@ const Header = ({ showHero = true }) => {
                   className="w-[35px] sm:w-[45px] h-auto"
                 />
               </motion.div>
-              <span className="text-xl sm:text-2xl font-black font-outfit tracking-tighter text-gray-900 select-none">
+              <span className="text-xl sm:text-2xl font-black font-inter tracking-tighter text-gray-900 select-none uppercase">
                 THRIVEN<span className="text-indigo-600">.</span>
               </span>
             </div>
@@ -34,7 +34,7 @@ const Header = ({ showHero = true }) => {
           
           {/* Navigation & Action - Right Aligned */}
           <div className="flex items-center gap-8 sm:gap-12">
-              <nav className="hidden md:flex items-center gap-10 text-sm font-bold text-gray-600 uppercase tracking-widest">
+              <nav className="hidden md:flex items-center gap-10 text-[11px] font-black text-gray-500 uppercase tracking-widest leading-none">
                   <Link href="/" className="hover:text-black transition-all hover:translate-y-[-1px] active:scale-95">Home</Link>
                   <Link href="/about" className="hover:text-black transition-all hover:translate-y-[-1px] active:scale-95">About Me</Link>
               </nav>
@@ -43,10 +43,10 @@ const Header = ({ showHero = true }) => {
                   <motion.button
                       whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(79, 70, 229, 0.2)" }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 text-sm font-bold py-3 px-8 rounded-2xl bg-gray-900 text-white shadow-xl shadow-gray-200 transition-all duration-300 uppercase tracking-widest"
+                      className="flex items-center gap-2 text-[10px] font-black py-3 px-8 rounded-2xl bg-gray-900 text-white shadow-xl shadow-gray-200 transition-all duration-300 uppercase tracking-[0.2em]"
                   >
-                      Login
-                      <ArrowRight size={18} />
+                      Auth Access
+                      <ArrowRight size={14} />
                   </motion.button>
               </Link>
           </div>
@@ -55,33 +55,33 @@ const Header = ({ showHero = true }) => {
 
       {/* Static Hero Section */}
       {showHero && (
-        <div className="text-center pt-6 pb-4 px-5 md:px-10 lg:px-16 bg-white border-b border-gray-50">
+        <div className="text-center pt-24 pb-20 px-5 md:px-10 lg:px-16 bg-white border-b border-gray-50">
           <div className="max-w-7xl mx-auto">
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 text-[10px] font-bold uppercase tracking-widest rounded-full mb-4 border border-indigo-100"
+                className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.3em] rounded-full mb-10 border border-indigo-100 shadow-sm"
             >
-                Explore Modern Perspectives
+                Protocol v2.5 / Intelligence Collective
             </motion.div>
             
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-5xl font-extrabold font-outfit tracking-tighter text-gray-900 leading-[1.1]"
+              className="text-5xl sm:text-8xl font-black font-inter tracking-tighter text-gray-950 leading-[0.9] mb-8 uppercase"
             >
               Perspective on <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 font-bold">Modern Technology</span>
+              <span className="text-indigo-600">Modern Architecture</span>
             </motion.h1>
             
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-6 max-w-[600px] m-auto text-base sm:text-lg text-gray-500 leading-relaxed font-outfit"
+              className="mt-8 max-w-[700px] m-auto text-lg sm:text-xl text-gray-500 leading-relaxed font-inter font-medium"
             >
-              A curated collection of thoughts on startups, development, and the digital lifestyle.
+              A high-signal collection of thoughts on rapid development, stoic philosophy, and the future of digital experience.
             </motion.p>
           </div>
         </div>

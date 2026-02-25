@@ -1,50 +1,45 @@
 import React from 'react';
-import { Github, Linkedin, Globe, Mail, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Globe, Mail, ArrowUp, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const socialLinks = [
-    { icon: <Github size={20} />, label: 'GitHub', href: 'https://github.com/thriven-anbu', color: 'hover:text-white hover:bg-black hover:shadow-[0_0_20px_rgba(0,0,0,0.5)] hover:scale-110' },
-    { icon: <Linkedin size={20} />, label: 'LinkedIn', href: 'https://linkedin.com/in/thriven-anbu', color: 'hover:text-white hover:bg-[#0077b5] hover:shadow-[0_0_20px_rgba(0,119,181,0.6)] hover:scale-110' },
-    { icon: <Globe size={20} />, label: 'Portfolio', href: 'https://thriven.me', color: 'hover:text-white hover:bg-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.6)] hover:scale-110' },
-    { icon: <Mail size={20} />, label: 'Email', href: 'mailto:contact@thriven.me', color: 'hover:text-white hover:bg-red-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] hover:scale-110' },
+    { icon: <Github size={18} />, label: 'GitHub', href: 'https://github.com/thriven-anbu', color: 'hover:bg-black hover:text-white' },
+    { icon: <Linkedin size={18} />, label: 'LinkedIn', href: 'https://linkedin.com/in/thriven-anbu', color: 'hover:bg-[#0077b5] hover:text-white' },
+    { icon: <Globe size={18} />, label: 'Portfolio', href: 'https://thriven.me', color: 'hover:bg-emerald-500 hover:text-white' },
+    { icon: <Mail size={18} />, label: 'Email', href: 'mailto:contact@thriven.me', color: 'hover:bg-red-500 hover:text-white' },
   ];
 
   return (
-    <footer className="relative bg-white border-t border-gray-100 pt-16 pb-12 px-6 md:px-12 lg:px-24 overflow-hidden">
-      {/* Decorative background element */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
-      
-      <div className="max-w-[1600px] mx-auto relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-6">
-          {/* Brand Section */}
+    <footer className="bg-white pt-32 pb-16 px-6 md:px-12 lg:px-24 border-t border-gray-100">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20 mb-32">
+          
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-black font-outfit mb-3 tracking-tighter">
-              THRIVEN<span className="text-indigo-600">.</span>
+            <h2 className="text-2xl font-black tracking-tighter uppercase mb-6">
+              Thriven<span className="text-indigo-600">.</span>
             </h2>
-            <p className="text-gray-500 text-base leading-relaxed max-w-md">
-              A space dedicated to sharing thoughts on technology, software engineering, and the creative process. Building things that matter, one line of code at a time.
+            <p className="text-sm font-medium text-gray-400 leading-relaxed max-w-sm uppercase tracking-widest">
+                Designing minimal perspectives on the infinite digital landscape. Building focused architectures for a distracted world.
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Navigation</h3>
-            <ul className="space-y-2">
-              {['Home', 'About Me', 'Privacy Policy'].map((item) => (
-                <li key={item}>
-                  <a href={item === 'Home' ? '/' : item === 'About Me' ? '/about' : '#'} className="text-sm font-medium text-gray-600 hover:text-black transition-colors flex items-center gap-1 group">
-                    {item}
-                    <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-all" />
-                  </a>
-                </li>
-              ))}
+            <p className="text-[9px] font-black uppercase tracking-[0.5em] text-gray-300 mb-8">Pages</p>
+            <ul className="space-y-4">
+              <li><Link href="/" className="text-[10px] uppercase font-black tracking-[0.2em] text-[#1A1A1A] hover:opacity-60 transition-colors flex items-center gap-2 group border-b-2 border-black pb-1 w-fit">Home <ExternalLink size={10} className="opacity-0 group-hover:opacity-100 transition-all" /></Link></li>
+              <li><Link href="/admin" className="text-[10px] uppercase font-black tracking-[0.2em] text-[#1A1A1A] hover:opacity-60 transition-colors flex items-center gap-2 group border-b-2 border-transparent hover:border-black pb-1 w-fit">Admin <ExternalLink size={10} className="opacity-0 group-hover:opacity-100 transition-all" /></Link></li>
+              <li><Link href="/privacy" className="text-[10px] uppercase font-black tracking-[0.2em] text-gray-400 hover:text-black transition-colors flex items-center gap-2 group w-fit">Privacy <ExternalLink size={10} className="opacity-0 group-hover:opacity-100 transition-all" /></Link></li>
             </ul>
           </div>
 
-          {/* Connect Section */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Connect</h3>
+            <p className="text-[9px] font-black uppercase tracking-[0.5em] text-gray-300 mb-8">Sync</p>
             <div className="flex flex-wrap gap-3">
               {socialLinks.map((link, idx) => (
                 <motion.a
@@ -61,17 +56,23 @@ const Footer = () => {
               ))}
             </div>
           </div>
+
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-6 border-t border-gray-50 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="text-sm font-medium text-gray-500">
-            © {new Date().getFullYear()} Thriven. Developed by <span className="text-indigo-600 font-bold">Anbu</span> • Built with <span className="text-indigo-600 font-bold">Next.js</span> & <span className="text-indigo-600 font-bold">MongoDB</span>
-          </p>
-          <div className="flex items-center gap-2">
-             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-             <span className="text-xs font-bold text-gray-400 uppercase tracking-tight">Systems Operational</span>
-          </div>
+        <div className="pt-16 border-t border-gray-50 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="flex items-center gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                <p className="text-[9px] font-black uppercase tracking-[0.5em] text-gray-300">
+                    © {new Date().getFullYear()} Thriven &bull; Anbu Selvan
+                </p>
+            </div>
+            <button 
+                onClick={scrollToTop}
+                className="flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.5em] text-gray-400 hover:text-black transition-all group"
+            >
+                Escape to Top
+                <ArrowUp size={14} className="group-hover:-translate-y-1 transition-transform" />
+            </button>
         </div>
       </div>
     </footer>

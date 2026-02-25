@@ -3,20 +3,18 @@ import "./globals.css";
 
 const outfit = Outfit({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   variable: "--font-outfit",
 });
 
 export const metadata = {
-  title: "Thriven",
-  description:
-    "Welcome to Thriven...Don't give a fuck about other people's opinions",
+  title: "THRIVEN",
+  description: "Minimalist perspective on the infinite digital landscape.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable} antialiased font-sans`}>
+      <body className={`${outfit.variable} antialiased font-outfit bg-white text-black selection:bg-black selection:text-white`}>
         {children}
       </body>
     </html>

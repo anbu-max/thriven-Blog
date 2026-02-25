@@ -2,52 +2,36 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
 
-const BlogItem = ({ title, description, category, image, id }) => {
-  return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.3 }}
-      className='w-full bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col h-full'
-    >
-      <Link href={`/blogs/${id}`} className="relative h-48 w-full overflow-hidden block">
-        <Image 
-          src={image} 
-          alt={title} 
-          fill
-          className='object-cover hover:scale-110 transition-transform duration-500'
-        />
-      </Link>
-      
-      <div className='p-5 flex flex-col flex-grow'>
-        <span className='inline-block py-1 px-3 text-xs font-semibold tracking-wide text-white bg-black rounded-full w-fit mb-3'>
-          {category}
-        </span>
-        
-        <h5 className='mb-3 text-xl font-bold tracking-tight text-gray-900 leading-tight line-clamp-2'>
-          {title}
-        </h5>
-        
-        <p className='mb-4 text-sm text-gray-600 line-clamp-3'>
-          {description.replace(/<[^>]*>?/gm, '')}
-        </p>
-        
-        <div className="mt-auto">
-          <Link 
-            href={`/blogs/${id}`} 
-            className='inline-flex items-center text-sm font-semibold text-black hover:text-gray-600 transition-colors group'
-          >
-            Read More 
-            <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />
-          </Link>
+const BlogItem = ({ title, description, category, image, id, date }) => {
+    return (
+        <div className='group flex flex-col'>
+            <Link href={`/blogs/${id}`} className='relative aspect-square overflow-hidden mb-6 border border-gray-100 bg-gray-50 rounded-lg'>
+                <img 
+                    src={image} 
+                    alt={title} 
+                    className='absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700' 
+                />
+                <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 text-[8px] font-black uppercase tracking-[0.2em] text-black">
+                    {category}
+                </span>
+            </Link>
+            
+            <Link href={`/blogs/${id}`}>
+                <h5 className='mb-3 text-lg font-bold tracking-tight text-black leading-tight uppercase group-hover:underline decoration-1 underline-offset-4 transition-all'>
+                    {title}
+                </h5>
+            </Link>
+
+            <p className='mb-6 text-[11px] font-medium text-gray-400 leading-relaxed line-clamp-2'>
+                {description.replace(/<[^>]*>?/gm, '')}
+            </p>
+
+            <Link href={`/blogs/${id}`} className='w-fit text-[9px] font-black uppercase tracking-[0.3em] text-black border-b border-gray-100 pb-1 hover:border-black transition-all'>
+                Read
+            </Link>
         </div>
-      </div>
-    </motion.div>
-  )
-}
+    );
+};
 
 export default BlogItem;
