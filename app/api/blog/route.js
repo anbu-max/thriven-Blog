@@ -6,11 +6,22 @@ import BlogModel from "@/lib/model/BlogModel";
 export async function GET(request) {
   try {
     await ConnectDB();
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (id) {
+        const blog = await BlogModel.findById(id);
+        if (!blog) {
+            return NextResponse.json({ error: "Blog not found" }, { status: 404 });
+        }
+        return NextResponse.json(blog);
+    }
+
     const blogs = await BlogModel.find({});
     return NextResponse.json({ blogs });
   } catch (error) {
-    console.error("GET API Error (Falling back to empty):", error);
-    return NextResponse.json({ blogs: [], error: "Database connection failed - falling back to static data" }, { status: 200 });
+    console.error("GET API Error:", error);
+    return NextResponse.json({ blogs: [], error: "Server Error" }, { status: 500 });
   }
 }
 

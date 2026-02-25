@@ -43,7 +43,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-5 font-outfit">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-5">
       <ToastContainer theme="dark" />
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}

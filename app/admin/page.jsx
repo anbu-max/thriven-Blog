@@ -212,51 +212,56 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center py-8 px-6 md:px-12 lg:px-20 font-outfit">
+    <div className="min-h-screen bg-white flex flex-col items-center py-8 px-6 md:px-12 lg:px-20 font-lato">
       <ToastContainer theme="dark" />
       
       {/* Navbar Header */}
-      <div className="w-full max-w-[1400px] flex justify-between items-center mb-8 bg-white p-4 rounded-3xl shadow-sm border border-black/10">
-        <Link href="/" className="flex items-center gap-2 text-black hover:opacity-50 transition-all font-black text-[11px] uppercase tracking-widest">
-          <ArrowLeft size={14} />
-          Site
-        </Link>
-        <div className="flex items-center gap-6">
-            <h1 className="text-xl font-black tracking-tight text-black uppercase">Admin</h1>
+      <div className="w-full max-w-[1400px] flex justify-between items-center mb-12 bg-white p-4 rounded-3xl shadow-sm border border-black/10">
+        <div className="flex-1">
+            <Link href="/" className="flex items-center gap-2 text-black hover:opacity-50 transition-all font-bold text-[11px] uppercase tracking-tight font-outfit w-fit">
+              <ArrowLeft size={14} />
+              Site
+            </Link>
+        </div>
+
+        {/* Tabs moved into header */}
+        <div className="flex gap-1 bg-white p-1 rounded-full border border-black/10 shadow-sm">
+            <button 
+                onClick={() => setActiveTab("add")}
+                className={`flex items-center gap-2 px-5 py-2 rounded-full font-bold text-[9px] uppercase tracking-tight transition-all ${activeTab === 'add' ? 'bg-black text-white' : 'text-black/40 hover:text-black font-lato'}`}
+            >
+                <PlusCircle size={12} />
+                {editId ? "Edit" : "Add Blog"}
+            </button>
+            <button 
+                onClick={() => {
+                    setActiveTab("manage");
+                    if (editId) {
+                    setEditId(null);
+                    setData({ title: "", description: "", category: "Startup", author: "Anbu Selvan" });
+                    setImage(false);
+                    }
+                }}
+                className={`flex items-center gap-2 px-5 py-2 rounded-full font-bold text-[9px] uppercase tracking-tight transition-all ${activeTab === 'manage' ? 'bg-black text-white' : 'text-black/40 hover:text-black font-lato'}`}
+            >
+                <LayoutDashboard size={12} />
+                Archives
+            </button>
+        </div>
+
+        <div className="flex-1 flex justify-end items-center gap-6">
+            <h1 className="text-xl font-bold tracking-tight text-black uppercase font-outfit">Admin</h1>
             <div className="h-4 w-[1px] bg-black/10 hidden sm:block"></div>
             <button 
                 onClick={handleLogout}
-                className="text-[10px] font-black text-white bg-black px-6 py-2.5 rounded-full hover:bg-black/80 transition-all uppercase tracking-widest active:scale-95"
+                className={`text-[10px] font-bold text-white bg-black px-6 py-2.5 rounded-full hover:bg-black/80 transition-all uppercase tracking-tight active:scale-95 font-lato`}
             >
                 Logout
             </button>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-2 mb-10 bg-white p-1.5 rounded-full border border-black/10 shadow-sm">
-          <button 
-            onClick={() => setActiveTab("add")}
-            className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === 'add' ? 'bg-black text-white' : 'text-black/40 hover:text-black'}`}
-          >
-              <PlusCircle size={14} />
-              {editId ? "Edit Blog" : "Add Blog"}
-          </button>
-          <button 
-            onClick={() => {
-                setActiveTab("manage");
-                if (editId) {
-                   setEditId(null);
-                   setData({ title: "", description: "", category: "Startup", author: "Anbu Selvan" });
-                   setImage(false);
-                }
-            }}
-            className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === 'manage' ? 'bg-black text-white' : 'text-black/40 hover:text-black'}`}
-          >
-              <LayoutDashboard size={14} />
-              Archives
-          </button>
-      </div>
+
 
       <AnimatePresence mode="wait">
         {activeTab === "add" ? (
@@ -270,15 +275,15 @@ const AdminPage = () => {
           >
             {editId && (
                 <div className="mb-10 flex justify-between items-center bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
-                    <p className="text-indigo-600 font-black text-[10px] uppercase tracking-[0.5em]">System Editing Active</p>
-                    <button type="button" onClick={() => {setEditId(null); setImage(false); setData({title: "", description: "", category: "Startup", author: "Anbu Selvan"}); setActiveTab("manage");}} className="text-indigo-600 hover:underline text-[10px] font-black uppercase tracking-widest">Abort Edit</button>
+                    <p className="text-indigo-600 font-bold text-[10px] uppercase tracking-[0.5em]">System Editing Active</p>
+                    <button type="button" onClick={() => {setEditId(null); setImage(false); setData({title: "", description: "", category: "Startup", author: "Anbu Selvan"}); setActiveTab("manage");}} className="text-indigo-600 hover:underline text-[10px] font-bold uppercase tracking-widest">Abort Edit</button>
                 </div>
             )}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
                 {/* Left Column: Image Uploads */}
                 <div className="lg:col-span-4 space-y-10">
                     <div>
-                        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-gray-300 mb-6">Core Visual</p>
+                        <p className="text-[11px] font-bold uppercase tracking-[0.5em] text-gray-300 mb-6">Core Visual</p>
                         <input type="file" id="image" hidden onChange={(e) => setImage(e.target.files[0])} />
                         <div className="relative group/img">
                         <label htmlFor="image" className="cursor-pointer">
@@ -286,7 +291,7 @@ const AdminPage = () => {
                             {!image ? (
                                 <>
                                 <Upload size={40} className="text-gray-200 group-hover:text-black transition-all" />
-                                <p className="mt-4 text-[9px] text-gray-300 font-black uppercase tracking-[0.4em]">Initialize Frame</p>
+                                <p className="mt-4 text-[9px] text-gray-300 font-bold uppercase tracking-[0.4em]">Initialize Frame</p>
                                 </>
                             ) : (
                                 <img src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt="preview" className="w-full h-full object-cover" />
@@ -303,20 +308,20 @@ const AdminPage = () => {
                 {/* Right Column: Content */}
                 <div className="lg:col-span-8 space-y-8">
                     <div>
-                        <p className="text-[11px] font-black uppercase tracking-widest text-black mb-4">Title</p>
-                        <input name="title" onChange={onChangeHandler} value={data.title} className="w-full px-6 py-4 bg-white border border-black/10 rounded-xl focus:outline-none focus:border-black transition-all text-lg font-black placeholder:text-black/20" type="text" placeholder="Title..." required />
+                        <p className="text-[11px] font-bold uppercase tracking-tight text-black mb-4 font-lato">Title</p>
+                        <input name="title" onChange={onChangeHandler} value={data.title} className="w-full px-6 py-4 bg-white border border-black/10 rounded-xl focus:outline-none focus:border-black transition-all text-lg font-medium placeholder:text-black/20 font-lato" type="text" placeholder="Title..." required />
                     </div>
 
                     <div>
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-4">
-                             <p className="text-[11px] font-black uppercase tracking-widest text-black">Content</p>
+                             <p className="text-[11px] font-bold uppercase tracking-widest text-black">Content</p>
                             <div className="flex flex-wrap gap-2">
                                 {["H3", "Paragraph", "List", "Quote"].map((tag) => (
                                     <button
                                         key={tag}
                                         type="button"
                                         onClick={() => insertTag(tag)}
-                                        className="px-4 py-1.5 text-[9px] font-black uppercase tracking-widest bg-white border border-black/10 rounded-lg hover:border-black transition-all active:scale-95 text-black"
+                                        className="px-4 py-1.5 text-[9px] font-bold uppercase tracking-widest bg-white border border-black/10 rounded-lg hover:border-black transition-all active:scale-95 text-black"
                                     >
                                         {tag}
                                     </button>
@@ -336,18 +341,18 @@ const AdminPage = () => {
 
                     <div className="grid grid-cols-2 gap-8">
                         <div>
-                        <p className="text-[11px] font-black uppercase tracking-widest text-black mb-4">Category</p>
-                        <select name="category" onChange={onChangeHandler} value={data.category} className="w-full px-6 py-4 bg-white border border-black/10 rounded-xl focus:outline-none cursor-pointer font-black text-[10px] uppercase tracking-widest text-black">
-                            {categories.filter(c => c !== "All").map(c => <option key={c} value={c}>{c}</option>)}
+                        <p className="text-[11px] font-bold uppercase tracking-tight text-black mb-4 font-lato">Category</p>
+                        <select name="category" onChange={onChangeHandler} value={data.category} className="w-full px-6 py-4 bg-white border border-black/10 rounded-xl focus:outline-none cursor-pointer font-bold text-[10px] uppercase tracking-tight text-black font-lato">
+                            {categories.filter(c => c !== "All").map(c => <option key={c} value={c} className="font-lato">{c}</option>)}
                         </select>
                         </div>
                         <div>
-                        <p className="text-[11px] font-black uppercase tracking-widest text-black mb-4">Author</p>
-                        <input name="author" onChange={onChangeHandler} value={data.author} className="w-full px-6 py-4 bg-white border border-black/10 rounded-xl focus:outline-none font-black text-[10px] uppercase tracking-widest text-black" type="text" placeholder="Name" required />
+                        <p className="text-[11px] font-bold uppercase tracking-tight text-black mb-4 font-lato">Author</p>
+                        <input name="author" onChange={onChangeHandler} value={data.author} className="w-full px-6 py-4 bg-white border border-black/10 rounded-xl focus:outline-none font-bold text-[10px] uppercase tracking-tight text-black font-lato" type="text" placeholder="Name" required />
                         </div>
                     </div>
 
-                    <button type="submit" disabled={loading} className="w-full bg-black text-white py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.4em] flex items-center justify-center gap-4 hover:bg-black/90 transition-all active:scale-95 disabled:opacity-50 mt-6">
+                    <button type="submit" disabled={loading} className="w-full bg-black text-white py-5 rounded-2xl font-bold text-[11px] uppercase tracking-[0.4em] flex items-center justify-center gap-4 hover:bg-black/90 transition-all active:scale-95 disabled:opacity-50 mt-6">
                         {loading ? "Processing..." : <><Send size={16} /> Post Blog</>}
                     </button>
                 </div>
@@ -362,27 +367,27 @@ const AdminPage = () => {
                className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-white p-6 rounded-3xl border border-black/10 shadow-sm"
             >
                 <div>
-                   <label className="text-[9px] font-black uppercase tracking-widest text-black/40 mb-2 block">Category</label>
-                   <select name="category" value={filters.category} onChange={onFilterChange} className="w-full bg-white border border-black/10 rounded-xl px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-black">
-                       {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                   <label className="text-[9px] font-bold uppercase tracking-tight text-black/40 mb-2 block font-lato">Category</label>
+                   <select name="category" value={filters.category} onChange={onFilterChange} className="w-full bg-white border border-black/10 rounded-xl px-4 py-2.5 text-[10px] font-bold uppercase tracking-tight text-black font-lato">
+                       {categories.map(c => <option key={c} value={c} className="font-lato">{c}</option>)}
                    </select>
                 </div>
                 <div>
-                   <label className="text-[9px] font-black uppercase tracking-widest text-black/40 mb-2 block">Author</label>
-                   <select name="author" value={filters.author} onChange={onFilterChange} className="w-full bg-white border border-black/10 rounded-xl px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-black">
-                       {authors.map(a => <option key={a} value={a}>{a}</option>)}
+                   <label className="text-[9px] font-bold uppercase tracking-tight text-black/40 mb-2 block font-lato">Author</label>
+                   <select name="author" value={filters.author} onChange={onFilterChange} className="w-full bg-white border border-black/10 rounded-xl px-4 py-2.5 text-[10px] font-bold uppercase tracking-tight text-black font-lato">
+                       {authors.map(a => <option key={a} value={a} className="font-lato">{a}</option>)}
                    </select>
                 </div>
                 <div>
-                   <label className="text-[9px] font-black uppercase tracking-widest text-black/40 mb-2 block">Year</label>
-                   <select name="year" value={filters.year} onChange={onFilterChange} className="w-full bg-white border border-black/10 rounded-xl px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-black">
-                       {years.map(y => <option key={y} value={y}>{y}</option>)}
+                   <label className="text-[9px] font-bold uppercase tracking-tight text-black/40 mb-2 block font-lato">Year</label>
+                   <select name="year" value={filters.year} onChange={onFilterChange} className="w-full bg-white border border-black/10 rounded-xl px-4 py-2.5 text-[10px] font-bold uppercase tracking-tight text-black font-lato">
+                       {years.map(y => <option key={y} value={y} className="font-lato">{y}</option>)}
                    </select>
                 </div>
                 <div className="flex items-end">
                    <div className="bg-black/5 px-4 py-2.5 rounded-xl flex items-center gap-3 w-full">
-                       <span className="text-[11px] font-black text-black">{filteredBlogs.length}</span>
-                       <span className="text-[9px] font-black uppercase tracking-widest text-black/40">Posts</span>
+                       <span className="text-[11px] font-bold text-black">{filteredBlogs.length}</span>
+                       <span className="text-[9px] font-bold uppercase tracking-widest text-black/40">Posts</span>
                    </div>
                 </div>
             </motion.div>
@@ -397,10 +402,10 @@ const AdminPage = () => {
                     <table className="w-full text-left">
                         <thead className="bg-black/5 border-b border-black/10">
                             <tr>
-                                <th className="px-8 py-4 text-[10px] font-black text-black uppercase tracking-widest">Title</th>
-                                <th className="px-8 py-4 text-[10px] font-black text-black uppercase tracking-widest hidden md:table-cell text-center">Category</th>
-                                <th className="px-8 py-4 text-[10px] font-black text-black uppercase tracking-widest hidden sm:table-cell">Author</th>
-                                <th className="px-8 py-4 text-[10px] font-black text-black uppercase tracking-widest text-right">Settings</th>
+                                <th className="px-8 py-4 text-[10px] font-bold text-black uppercase tracking-tight font-lato">Title</th>
+                                <th className="px-8 py-4 text-[10px] font-bold text-black uppercase tracking-tight hidden md:table-cell text-center font-lato">Category</th>
+                                <th className="px-8 py-4 text-[10px] font-bold text-black uppercase tracking-tight hidden sm:table-cell font-lato">Author</th>
+                                <th className="px-8 py-4 text-[10px] font-bold text-black uppercase tracking-tight text-right font-lato">Settings</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
@@ -415,17 +420,17 @@ const AdminPage = () => {
                                                     <img src={blog.image} className="w-full h-full object-cover" alt="thumb" />
                                                 </div>
                                                 <div>
-                                                    <p className="font-black text-black text-[15px] tracking-tight line-clamp-1">{blog.title}</p>
-                                                    <p className="text-[9px] font-black text-black/30 uppercase tracking-widest mt-1">{new Date(blog.date).toLocaleDateString()}</p>
+                                                    <p className="font-normal text-black text-[15px] tracking-tight line-clamp-1 font-lato">{blog.title}</p>
+                                                    <p className="text-[9px] font-bold text-black/30 uppercase tracking-tight mt-1 font-lato">{new Date(blog.date).toLocaleDateString()}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-8 py-6 hidden md:table-cell text-center">
-                                            <span className="px-3 py-1 bg-black/5 text-black text-[8px] font-black uppercase tracking-widest rounded-full border border-black/10">
+                                        <td className="px-8 py-6 hidden md:table-cell text-center font-lato">
+                                            <span className="px-3 py-1 bg-black/5 text-black text-[8px] font-bold uppercase tracking-tight rounded-full border border-black/10 font-lato">
                                                 {blog.category}
                                             </span>
                                         </td>
-                                        <td className="px-8 py-6 hidden sm:table-cell font-black text-[10px] uppercase tracking-widest text-black/50">
+                                        <td className="px-8 py-6 hidden sm:table-cell font-bold text-[10px] uppercase tracking-tight text-black/50 font-lato">
                                             {blog.author}
                                         </td>
                                         <td className="px-10 py-8">

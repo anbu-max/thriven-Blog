@@ -37,25 +37,25 @@ const LatestSection = () => {
     const headlines = blogs.slice(3, 8);
 
     return (
-        <header className="w-full bg-white mb-20 font-outfit">
+        <header className="w-full bg-white mb-20 font-lato text-gray-700">
             {/* Top Bar Navigation - Clinical Matte Black */}
             <nav className="border-b border-gray-100 flex justify-between items-center py-5 px-6 md:px-12 lg:px-16">
-                <Link href="/" className="flex items-center gap-4">
+                <Link href="/" className="flex items-center gap-3">
                     <motion.div
                         animate={{ rotate: 360 }}
-                        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                         className="flex items-center"
                     >
-                        <Image src="/logo.png" width={34} height={34} alt="Thriven Logo" className="w-[30px] sm:w-[34px] h-auto" />
+                        <Image src="/logo.png" width={28} height={28} alt="Thriven Logo" className="w-[24px] sm:w-[28px] h-auto" />
                     </motion.div>
-                    <span className="text-xl font-black tracking-tighter uppercase text-black">
+                    <span className="text-[18px] sm:text-[22px] font-bold tracking-tighter uppercase text-black font-outfit">
                         Thriven<span className="text-indigo-600">.</span>
                     </span>
                 </Link>
                 <div className="flex items-center gap-10">
-                    <div className="flex gap-10 text-[11px] font-black uppercase tracking-widest leading-none">
-                        <Link href="/" className="text-black hover:opacity-50 transition-all border-b-2 border-black pb-1">Home</Link>
-                        <Link href="/admin" className="text-black hover:opacity-50 transition-all border-b-2 border-transparent hover:border-black pb-1">Admin</Link>
+                    <div className="flex gap-10 text-[14px] font-bold uppercase tracking-tight leading-none font-outfit">
+                        <Link href="/" className="text-black hover:opacity-50 transition-all">Home</Link>
+                        <Link href="/admin" className="text-black hover:opacity-50 transition-all">Admin</Link>
                     </div>
                 </div>
             </nav>
@@ -64,7 +64,7 @@ const LatestSection = () => {
             <div className="px-6 md:px-12 lg:px-16 py-8">
                 <div className="flex items-center gap-4">
                     <div className="w-8 h-[2px] bg-black"></div>
-                    <h2 className="text-[12px] font-black uppercase tracking-[0.5em] text-black">Latest Posts</h2>
+                    <h2 className="text-[16px] font-black uppercase tracking-tight text-black">Latest Posts</h2>
                 </div>
             </div>
 
@@ -86,13 +86,13 @@ const LatestSection = () => {
                                 {featured.category}
                             </span>
                             <Link href={`/blogs/${featured._id}`}>
-                                <h1 className="text-2xl md:text-3xl lg:text-4xl font-black text-white leading-[1.1] tracking-tighter uppercase mb-6 group-hover:underline underline-offset-4 decoration-[2px] transition-all">
+                                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-[1.1] tracking-tighter uppercase mb-6 group-hover:underline underline-offset-4 decoration-[2px] transition-all">
                                     {featured.title}
                                 </h1>
                             </Link>
-                            <div className="flex items-center gap-4 text-white/60 text-[9px] font-black uppercase tracking-widest">
+                            <div className="flex items-center gap-4 text-white text-[9px] font-black uppercase tracking-widest">
                                 <span>ANBU SELVAN</span>
-                                <span className="w-4 h-[1px] bg-white/20"></span>
+                                <span className="w-4 h-[1px] bg-white/40"></span>
                                 <span>{new Date(featured.date).toLocaleDateString()}</span>
                             </div>
                         </div>
@@ -106,15 +106,15 @@ const LatestSection = () => {
                                     <img src={blog.image} alt={blog.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-700" />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[8px] font-black uppercase tracking-widest text-indigo-600 mb-2 block">
+                                    <span className="text-[8px] font-black uppercase tracking-widest text-black mb-2 block">
                                         {blog.category}
                                     </span>
                                     <Link href={`/blogs/${blog._id}`}>
-                                        <h3 className="text-base font-black text-black leading-tight group-hover:underline underline-offset-4 decoration-[2px] transition-all uppercase tracking-tight">
+                                        <h3 className="text-base font-bold text-black leading-tight group-hover:underline underline-offset-4 decoration-[2px] transition-all uppercase tracking-tight">
                                             {blog.title}
                                         </h3>
                                     </Link>
-                                    <div className="mt-4 flex items-center gap-3 text-[8px] text-black/30 font-black uppercase tracking-widest">
+                                    <div className="mt-4 flex items-center gap-3 text-[8px] text-black font-black uppercase tracking-widest">
                                         <span>BY {blog.author.split(' ')[0]}</span>
                                         <span>&bull; {new Date(blog.date).getHours()}H AGO</span>
                                     </div>
@@ -125,7 +125,7 @@ const LatestSection = () => {
 
                     {/* 3. Popular Section (Right - Expanded) */}
                     <div className="lg:col-span-3 bg-gray-50/5 p-6 flex flex-col pt-0">
-                        <h2 className="text-[11px] font-black uppercase tracking-[0.5em] text-black mb-10 flex items-center gap-3 h-[45px] border-b border-black/5">
+                        <h2 className="text-[11px] font-bold uppercase tracking-[0.5em] text-black mb-10 flex items-center gap-3 h-[45px] border-b border-black/5">
                             <div className="w-2.5 h-2.5 bg-black"></div>
                             Popular
                         </h2>
@@ -135,14 +135,14 @@ const LatestSection = () => {
                                 <div key={blog._id} className="group relative">
                                     <div className="flex items-center gap-2 mb-1.5">
                                          <div className="w-1.5 h-[2px] bg-black group-hover:w-3 transition-all"></div>
-                                         <span className="text-[8px] font-black uppercase tracking-widest text-indigo-600/70">{blog.category}</span>
+                                         <span className="text-[8px] font-black uppercase tracking-widest text-black">{blog.category}</span>
                                     </div>
                                     <Link href={`/blogs/${blog._id}`}>
-                                        <h4 className="text-[14px] font-black leading-tight text-black group-hover:underline underline-offset-2 decoration-1 transition-all uppercase tracking-tighter">
+                                        <h4 className="text-[14px] font-bold leading-tight text-black group-hover:underline underline-offset-2 decoration-1 transition-all uppercase tracking-tighter">
                                             {blog.title}
                                         </h4>
                                     </Link>
-                                    <p className="text-[8px] font-black uppercase tracking-widest text-black/20 mt-2.5">
+                                    <p className="text-[8px] font-black uppercase tracking-widest text-black mt-2.5">
                                         {new Date(blog.date).toLocaleDateString()}
                                     </p>
                                 </div>

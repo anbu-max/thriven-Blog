@@ -12,7 +12,7 @@ const BlogItem = ({ title, description, category, image, id, date }) => {
                     alt={title} 
                     className='absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700' 
                 />
-                <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 text-[8px] font-black uppercase tracking-[0.2em] text-black">
+                <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 text-[8px] font-bold uppercase tracking-[0.2em] text-black">
                     {category}
                 </span>
             </Link>
@@ -23,11 +23,11 @@ const BlogItem = ({ title, description, category, image, id, date }) => {
                 </h5>
             </Link>
 
-            <p className='mb-6 text-[11px] font-medium text-gray-400 leading-relaxed line-clamp-2'>
+            <p className='mb-6 text-[11px] font-medium text-black leading-relaxed line-clamp-2'>
                 {description.replace(/<[^>]*>?/gm, '')}
             </p>
 
-            <Link href={`/blogs/${id}`} className='w-fit text-[9px] font-black uppercase tracking-[0.3em] text-black border-b border-gray-100 pb-1 hover:border-black transition-all'>
+            <Link href={`/blogs/${id}`} className='w-fit text-[9px] font-bold uppercase tracking-[0.3em] text-black border-b border-gray-100 pb-1 hover:border-black transition-all'>
                 Read
             </Link>
         </div>

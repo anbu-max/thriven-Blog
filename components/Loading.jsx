@@ -18,7 +18,7 @@ const Loading = () => {
           transition={{ duration: 1 }}
           className="flex flex-col items-center gap-12"
         >
-          <h1 className="text-4xl font-light uppercase tracking-[0.5em] text-black">
+          <h1 className="text-4xl font-light uppercase tracking-[0.5em] text-black font-outfit">
             Thriven<span className="text-gray-200">.</span>
           </h1>
           <div className="w-24 h-[1px] bg-gray-50 relative overflow-hidden">

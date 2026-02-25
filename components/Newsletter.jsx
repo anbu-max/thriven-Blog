@@ -29,7 +29,7 @@ const Newsletter = () => {
                 className="max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl border border-white p-12 md:p-16 flex flex-col lg:flex-row items-center gap-16 shadow-[0_30px_100px_-20px_rgba(0,0,0,0.1)] rounded-[2rem]"
             >
                 <div className="flex-1 text-center lg:text-left">
-                    <h2 className="text-4xl md:text-5xl font-black text-black leading-tight mb-6 tracking-tighter">
+                    <h2 className="text-4xl md:text-5xl font-bold text-black leading-tight mb-6 tracking-tighter font-outfit">
                         Keep in Touch<span className="text-indigo-600">.</span>
                     </h2>
                     <p className="text-lg text-gray-500 font-medium leading-relaxed max-w-sm">
@@ -45,17 +45,39 @@ const Newsletter = () => {
                             required 
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="flex-1 bg-white/80 border border-gray-100 px-8 py-5 text-sm text-black focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all font-bold tracking-widest placeholder:text-gray-300 rounded-2xl"
+                            className="flex-1 bg-white/80 border border-gray-100 px-8 py-5 text-sm text-black focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all font-bold tracking-tight placeholder:text-gray-300 rounded-2xl font-lato"
                         />
-                        <button 
+                        <motion.button 
                             disabled={loading}
                             type="submit" 
-                            className="bg-black text-white px-10 py-5 hover:bg-black/90 hover:text-white hover:shadow-2xl hover:shadow-black/20 transition-all disabled:opacity-50 font-black uppercase tracking-widest text-[10px] rounded-2xl shadow-xl shadow-black/10 active:scale-95 border-b-2 border-transparent hover:border-white"
+                            initial="initial"
+                            whileHover="hover"
+                            whileTap={{ scale: 0.95 }}
+                            className="relative overflow-hidden bg-black text-white px-10 py-5 disabled:opacity-50 font-bold uppercase tracking-tight text-[10px] rounded-2xl shadow-xl shadow-black/10 transition-shadow duration-300 group font-outfit"
                         >
-                            Subscribe
-                        </button>
+                            {/* Water Fill Effect */}
+                            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                                <motion.div
+                                    variants={{
+                                        initial: { y: "100%" },
+                                        hover: { y: "0%" }
+                                    }}
+                                    transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
+                                    className="absolute inset-0 bg-[#FFC800]"
+                                >
+                                    <svg className="absolute bottom-full left-0 w-[200%] h-8 text-[#FFC800] fill-current animate-wave" viewBox="0 0 100 20" preserveAspectRatio="none">
+                                        <path d="M0 10 Q 25 20 50 10 T 100 10 T 150 10 T 200 10 V 20 H 0 Z" />
+                                    </svg>
+                                    <svg className="absolute bottom-full left-[-100%] w-[200%] h-10 text-[#FFC800]/50 fill-current animate-wave-slow opacity-50" viewBox="0 0 100 20" preserveAspectRatio="none">
+                                        <path d="M0 10 Q 25 0 50 10 T 100 10 T 150 10 T 200 10 V 20 H 0 Z" />
+                                    </svg>
+                                </motion.div>
+                            </div>
+                            
+                            <span className="relative z-10 group-hover:text-black transition-colors duration-500">Subscribe</span>
+                        </motion.button>
                     </form>
-                    <p className="mt-8 text-[9px] font-bold uppercase tracking-[0.4em] text-gray-300 text-center lg:text-left">
+                    <p className="mt-8 text-[9px] font-bold uppercase tracking-tight text-gray-300 text-center lg:text-left font-outfit">
                         Join 2,000+ other subscribers.
                     </p>
                 </div>

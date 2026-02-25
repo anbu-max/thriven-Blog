@@ -54,7 +54,7 @@ const BlogList = () => {
                     <button
                         key={category}
                         onClick={() => { setMenu(category); setCurrentPage(1); }}
-                        className={`relative py-3 px-8 text-[10px] uppercase font-black tracking-[0.3em] transition-all whitespace-nowrap ${menu === category ? 'text-white' : 'text-gray-400 hover:text-black'}`}
+                        className={`relative py-3 px-8 text-[12px] uppercase font-bold tracking-[0.3em] transition-all whitespace-nowrap ${menu === category ? 'text-white' : 'text-black/60 hover:text-black'}`}
                     >
                         {menu === category && (
                             <motion.span
@@ -107,7 +107,7 @@ const BlogList = () => {
                             <button
                                 key={i}
                                 onClick={() => paginate(i + 1)}
-                                className={`w-12 h-12 flex items-center justify-center text-[10px] font-black tracking-widest transition-all ${currentPage === i + 1 ? 'bg-black text-white' : 'text-gray-400 hover:text-black'}`}
+                                className={`w-12 h-12 flex items-center justify-center text-[10px] font-bold tracking-widest transition-all ${currentPage === i + 1 ? 'bg-black text-white' : 'text-black/60 hover:text-black'}`}
                             >
                                 {String(i + 1).padStart(2, '0')}
                             </button>

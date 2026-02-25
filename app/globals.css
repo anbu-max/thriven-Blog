@@ -2,23 +2,30 @@
 
 @theme {
   --font-outfit: var(--font-outfit);
+  --font-montserrat: var(--font-montserrat);
+  --font-lato: var(--font-lato);
 }
 
 @layer base {
   body {
-    @apply font-outfit text-black bg-white selection:bg-indigo-100 selection:text-indigo-900 antialiased;
+    @apply font-outfit text-black bg-white selection:bg-indigo-100 selection:text-indigo-900 antialiased font-normal;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-outfit font-black tracking-tight;
+    @apply font-outfit font-bold tracking-tight;
+  }
+
+  /* Font Preservation Utility */
+  .font-outfit {
+    font-family: var(--font-outfit);
   }
 
   .prose {
-    @apply max-w-4xl mx-auto;
+    @apply max-w-4xl mx-auto font-lato;
   }
 
   .prose h1, .prose h2, .prose h3 {
-    @apply font-black text-black mt-16 mb-6 tracking-tight leading-tight;
+    @apply font-outfit font-bold text-black mt-16 mb-6 tracking-tight leading-tight;
   }
 
   .prose h1 { @apply text-5xl; }
@@ -26,19 +33,19 @@
   .prose h3 { @apply text-xl; }
   
   .prose p {
-    @apply text-lg text-gray-700 leading-relaxed mb-8;
+    @apply text-lg text-gray-700 leading-relaxed mb-8 font-normal;
   }
   
   .prose ul {
-    @apply list-disc pl-6 space-y-4 mb-10;
+    @apply list-disc pl-6 space-y-4 mb-10 font-normal;
   }
   
   .prose li {
-    @apply text-lg text-gray-700;
+    @apply text-lg text-gray-700 font-normal;
   }
 
   .prose blockquote {
-    @apply border-l-4 border-black pl-8 py-4 my-12 bg-gray-50 font-medium text-2xl text-black italic;
+    @apply border-l-4 border-black pl-8 py-4 my-12 bg-gray-50 font-normal text-2xl text-black italic;
   }
   
   .prose img {
@@ -46,10 +53,29 @@
   }
 }
 
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+@keyframes wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes wave-slow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(33.3%); }
+}
+
+.animate-wave {
+  animation: wave 4s linear infinite;
+}
+
+.animate-wave-slow {
+  animation: wave-slow 7s linear infinite;
 }

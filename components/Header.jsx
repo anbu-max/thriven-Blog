@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const Header = ({ showHero = true }) => {
@@ -9,10 +9,10 @@ const Header = ({ showHero = true }) => {
     <>
       {/* Navigation Bar */}
       <header className="sticky top-0 z-[100] bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-[1600px] mx-auto py-5 px-6 md:px-12 lg:px-24 flex justify-between items-center">
+        <div className="max-w-[1700px] mx-auto py-5 px-6 md:px-12 lg:px-24 flex justify-between items-center">
           {/* Brand Logo - Left Aligned */}
           <Link href="/">
-            <div className="flex items-center gap-3 py-1 origin-left">
+            <div className="flex items-center gap-4 py-1 origin-left">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
@@ -21,12 +21,12 @@ const Header = ({ showHero = true }) => {
                 <Image
                   src="/logo.png"
                   alt="Thriven Logo"
-                  width={60}
-                  height={20}
-                  className="w-[35px] sm:w-[45px] h-auto"
+                  width={28}
+                  height={28}
+                  className="w-[24px] sm:w-[28px] h-auto"
                 />
               </motion.div>
-              <span className="text-xl sm:text-2xl font-black font-inter tracking-tighter text-gray-900 select-none uppercase">
+              <span className="text-[18px] sm:text-[22px] font-bold font-outfit tracking-tighter text-gray-900 select-none uppercase">
                 THRIVEN<span className="text-indigo-600">.</span>
               </span>
             </div>
@@ -34,57 +34,59 @@ const Header = ({ showHero = true }) => {
           
           {/* Navigation & Action - Right Aligned */}
           <div className="flex items-center gap-8 sm:gap-12">
-              <nav className="hidden md:flex items-center gap-10 text-[11px] font-black text-gray-500 uppercase tracking-widest leading-none">
+              <nav className="hidden md:flex items-center gap-12 text-[14px] font-bold text-gray-500 uppercase tracking-tight leading-none font-outfit">
                   <Link href="/" className="hover:text-black transition-all hover:translate-y-[-1px] active:scale-95">Home</Link>
                   <Link href="/about" className="hover:text-black transition-all hover:translate-y-[-1px] active:scale-95">About Me</Link>
               </nav>
 
               <Link href="/login">
                   <motion.button
-                      whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(79, 70, 229, 0.2)" }}
+                      whileHover={{ scale: 1.05, boxShadow: "0 10px_40px_-10px_rgba(0,0,0,0.2)" }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 text-[10px] font-black py-3 px-8 rounded-2xl bg-gray-900 text-white shadow-xl shadow-gray-200 transition-all duration-300 uppercase tracking-[0.2em]"
+                      className="flex items-center gap-3 text-[13px] font-bold py-4 px-10 rounded-2xl bg-gray-900 text-white shadow-2xl shadow-gray-200 transition-all duration-300 uppercase tracking-tight font-outfit"
                   >
                       Auth Access
-                      <ArrowRight size={14} />
+                      <ArrowRight size={16} />
                   </motion.button>
               </Link>
           </div>
         </div>
       </header>
 
-      {/* Static Hero Section */}
       {showHero && (
-        <div className="text-center pt-24 pb-20 px-5 md:px-10 lg:px-16 bg-white border-b border-gray-50">
-          <div className="max-w-7xl mx-auto">
+        <section className="relative pt-32 pb-24 px-6 md:px-12 lg:px-24 bg-white overflow-hidden">
+          <div className="max-w-[1200px] mx-auto relative z-10">
             <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.3em] rounded-full mb-10 border border-indigo-100 shadow-sm"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
             >
-                Protocol v2.5 / Intelligence Collective
+              <h1 className="text-6xl md:text-8xl font-bold text-black leading-[0.9] tracking-tighter mb-8 font-outfit uppercase">
+                Stay <br />
+                Connected<span className="text-indigo-600">.</span>
+              </h1>
+              <p className="text-lg md:text-xl text-gray-500 font-medium max-w-xl leading-relaxed mb-12">
+                Exploring the intersection of technology, culture, and architecture. 
+                Discover stories that matter.
+              </p>
+              
+              <div className="flex flex-wrap gap-4">
+                  <Link href="/about">
+                      <button className="bg-black text-white px-10 py-5 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-gray-800 transition-all font-outfit">
+                          Our Story
+                      </button>
+                  </Link>
+                  <button className="bg-white text-black border border-gray-100 px-10 py-5 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-gray-50 transition-all font-outfit">
+                      Latest Posts
+                  </button>
+              </div>
             </motion.div>
-            
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-5xl sm:text-8xl font-black font-inter tracking-tighter text-gray-950 leading-[0.9] mb-8 uppercase"
-            >
-              Perspective on <br />
-              <span className="text-indigo-600">Modern Architecture</span>
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-8 max-w-[700px] m-auto text-lg sm:text-xl text-gray-500 leading-relaxed font-inter font-medium"
-            >
-              A high-signal collection of thoughts on rapid development, stoic philosophy, and the future of digital experience.
-            </motion.p>
           </div>
-        </div>
+
+          {/* Decorative Elements */}
+          <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-50 rounded-full blur-[120px] -z-10 animate-pulse"></div>
+          <div className="absolute bottom-10 left-10 w-32 h-32 border border-gray-100 rounded-full -z-10"></div>
+        </section>
       )}
     </>
   );
