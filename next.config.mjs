@@ -1,10 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    localPatterns: [
+      {
+        pathname: '/**',
+      },
+    ],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.public.blob.vercel-storage.com',
+        hostname: 'pkg93plgbhxuapmv.public.blob.vercel-storage.com',
+        port: '',
+        pathname: '/**',
+        search: '',
       },
     ],
   },

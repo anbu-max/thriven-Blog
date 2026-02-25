@@ -19,13 +19,11 @@ const AdminPage = () => {
   
   // States for Add/Edit Blog
   const [image, setImage] = useState(false);
-  const [authorImgFile, setAuthorImgFile] = useState(false);
   const [data, setData] = useState({
     title: "",
     description: "",
     category: "Startup",
     author: "Anbu",
-    authorImg: "/profile_icon.png",
   });
 
   const fetchBlogs = async () => {
@@ -61,7 +59,6 @@ const AdminPage = () => {
           description: blog.description,
           category: blog.category,
           author: blog.author,
-          authorImg: blog.authorImg,
       });
       // We set image to the current URL so the preview works, but it's a string not a file
       setImage(blog.image);
@@ -83,11 +80,7 @@ const AdminPage = () => {
     formData.append("description", data.description);
     formData.append("category", data.category);
     formData.append("author", data.author);
-    formData.append("authorImg", data.authorImg);
     formData.append("image", image);
-    if (authorImgFile) {
-        formData.append("authorImgFile", authorImgFile);
-    }
 
     try {
       const response = editId 
@@ -97,14 +90,12 @@ const AdminPage = () => {
       if (response.data.msg) {
         toast.success(response.data.msg);
         setImage(false);
-        setAuthorImgFile(false);
         setEditId(null);
         setData({
           title: "",
           description: "",
           category: "Startup",
           author: "Anbu",
-          authorImg: "/profile_icon.png",
         });
         if (editId) setActiveTab("manage");
       } else if (response.data.error) {
@@ -233,9 +224,8 @@ const AdminPage = () => {
                 setActiveTab("manage");
                 if (editId) {
                    setEditId(null);
-                   setData({ title: "", description: "", category: "Startup", author: "Anbu", authorImg: "/profile_icon.png" });
+                   setData({ title: "", description: "", category: "Startup", author: "Anbu" });
                    setImage(false);
-                   setAuthorImgFile(false);
                 }
             }}
             className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${activeTab === 'manage' ? 'bg-white shadow-md text-black' : 'text-gray-500 hover:text-black'}`}
@@ -258,7 +248,7 @@ const AdminPage = () => {
             {editId && (
                 <div className="mb-6 flex justify-between items-center bg-blue-50 p-4 rounded-xl border border-blue-100">
                     <p className="text-blue-700 font-bold text-xs uppercase tracking-widest">Editing Mode Active</p>
-                    <button type="button" onClick={() => {setEditId(null); setImage(false); setData({title: "", description: "", category: "Startup", author: "Anbu", authorImg: "/profile_icon.png"}); setActiveTab("manage");}} className="text-blue-700 hover:underline text-[10px] font-bold uppercase">Cancel Edit</button>
+                    <button type="button" onClick={() => {setEditId(null); setImage(false); setData({title: "", description: "", category: "Startup", author: "Anbu"}); setActiveTab("manage");}} className="text-blue-700 hover:underline text-[10px] font-bold uppercase">Cancel Edit</button>
                 </div>
             )}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -286,23 +276,7 @@ const AdminPage = () => {
                         </div>
                     </div>
 
-                    <div>
-                        <p className="text-base font-bold uppercase tracking-widest text-gray-400 mb-4">Author Profile</p>
-                        <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-100">
-                            <div className="w-16 h-16 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden border-2 border-white shadow-sm">
-                                {authorImgFile ? (
-                                    <Image src={URL.createObjectURL(authorImgFile)} width={64} height={64} alt="author preview" className="w-full h-full object-cover" />
-                                ) : (
-                                    <img src={data.authorImg} alt="author" className="w-full h-full object-cover" />
-                                )}
-                            </div>
-                            <div className="space-y-2">
-                                <label htmlFor="authorFile" className="cursor-pointer block text-[10px] font-bold text-indigo-600 uppercase hover:underline">Upload Image</label>
-                                <input type="file" id="authorFile" hidden onChange={(e) => {setAuthorImgFile(e.target.files[0]); setData({...data, authorImg: "Local file selected"})}} />
-                                {authorImgFile && <button type="button" onClick={() => {setAuthorImgFile(false); setData({...data, authorImg: "/profile_icon.png"})}} className="text-[10px] text-red-500 font-bold uppercase hover:underline">Reset</button>}
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
 
                 {/* Right Column: Content */}

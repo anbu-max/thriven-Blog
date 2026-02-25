@@ -98,14 +98,7 @@ const Page = ({ params }) => {
             {data.title}
           </h1>
           <div className="flex justify-center items-center gap-3">
-            <Image
-              className="border-2 border-white shadow-md rounded-full"
-              src={data.authorImg || data.author_img || assets.profile_icon}
-              width={40}
-              height={40}
-              alt={data.author}
-            />
-            <div className="text-left">
+            <div className="text-center">
               <p className="font-bold text-gray-900 leading-none text-sm">{data.author}</p>
               <p className="text-[11px] text-gray-500 mt-0.5">Contributor at Thriven</p>
             </div>

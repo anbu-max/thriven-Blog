@@ -23,9 +23,7 @@ export async function POST(request) {
     const description = formData.get("description");
     const category = formData.get("category");
     const author = formData.get("author");
-    const authorImg = formData.get("authorImg");
     const image = formData.get("image");
-    const authorImgFile = formData.get("authorImgFile");
 
     if (!title || !description || !category || !author) {
         return NextResponse.json({ error: "Missing required fields (Title, Description, Category, or Author)" }, { status: 400 });
@@ -42,23 +40,12 @@ export async function POST(request) {
     });
     const blogImgUrl = blob.url;
 
-    // Process Author Image if uploaded as file
-    let finalAuthorImg = authorImg || "/profile_icon.png";
-    if (authorImgFile && typeof authorImgFile !== "string") {
-        const authorImgFilename = `${Date.now()}_author_${authorImgFile.name.replace(/\s+/g, '_')}`;
-        const authorBlob = await put(`authors/${authorImgFilename}`, authorImgFile, {
-            access: 'public',
-        });
-        finalAuthorImg = authorBlob.url;
-    }
-
     // save to Mongo
     const blogData = {
       title,
       description,
       category,
       author,
-      authorImg: finalAuthorImg,
       image: blogImgUrl,
     };
     
@@ -105,9 +92,7 @@ export async function PUT(request) {
         const description = formData.get("description");
         const category = formData.get("category");
         const author = formData.get("author");
-        const authorImg = formData.get("authorImg");
         const image = formData.get("image"); 
-        const authorImgFile = formData.get("authorImgFile");
 
         if (!id) return NextResponse.json({ error: "Blog ID is required" }, { status: 400 });
 
@@ -123,17 +108,6 @@ export async function PUT(request) {
                 access: 'public',
             });
             updateData.image = blob.url;
-        }
-
-        // Handle Author Image Update
-        if (authorImgFile && typeof authorImgFile !== "string") {
-            const authorImgFilename = `${Date.now()}_author_${authorImgFile.name.replace(/\s+/g, '_')}`;
-            const authorBlob = await put(`authors/${authorImgFilename}`, authorImgFile, {
-                access: 'public',
-            });
-            updateData.authorImg = authorBlob.url;
-        } else if (authorImg) {
-            updateData.authorImg = authorImg;
         }
 
         await BlogModel.findByIdAndUpdate(id, updateData);
