@@ -109,7 +109,7 @@ npm run dev
 **Anbu Selvan**  
 *CSE Student & Digital Architect*
 
-- **Web:** [thriven.me](https://thriven.me)
+- **Web:** [anbuselvan-two.vercel.app](https://anbuselvan-two.vercel.app/)
 - **LinkedIn:** [Anbu Selvan](https://linkedin.com/in/thriven-anbu)
 - **GitHub:** [@anbu-max](https://github.com/anbu-max)
 

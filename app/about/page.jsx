@@ -65,7 +65,7 @@ export default function AboutPage() {
               Thriven is my personal digital ledger, representing a space where technology, philosophy, and mindful design intersect.
             </p>
             <div className="pt-4 flex gap-6">
-              <a href="https://thriven.me" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-black hover:opacity-60 transition-all border-b border-black pb-1">
+              <a href="https://anbuselvan-two.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-black hover:opacity-60 transition-all border-b border-black pb-1">
                 Portfolio <ArrowUpRight size={12} />
               </a>
               <a href="https://github.com/anbu-max" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-black hover:opacity-60 transition-all border-b border-black pb-1">

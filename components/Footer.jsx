@@ -11,7 +11,7 @@ const Footer = () => {
   const socialLinks = [
     { icon: <Github size={18} />, label: 'GitHub', href: 'https://github.com/thriven-anbu', color: 'hover:bg-black hover:text-white' },
     { icon: <Linkedin size={18} />, label: 'LinkedIn', href: 'https://linkedin.com/in/thriven-anbu', color: 'hover:bg-[#0077b5] hover:text-white' },
-    { icon: <Globe size={18} />, label: 'Portfolio', href: 'https://thriven.me', color: 'hover:bg-emerald-500 hover:text-white' },
+    { icon: <Globe size={18} />, label: 'Portfolio', href: 'https://anbuselvan-two.vercel.app/', color: 'hover:bg-emerald-500 hover:text-white' },
     { icon: <Mail size={18} />, label: 'Email', href: 'mailto:contact@thriven.me', color: 'hover:bg-red-500 hover:text-white' },
   ];
 

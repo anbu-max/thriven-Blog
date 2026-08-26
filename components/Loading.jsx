@@ -1,27 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Loading = () => {
-  const [status, setStatus] = useState("Thinking");
-
-  useEffect(() => {
-    const statuses = [
-      "Thinking",
-      "Planning",
-      "Analyzing",
-      "Synthesizing",
-      "Optimizing Context",
-      "Loading Stories"
-    ];
-    let i = 0;
-    const interval = setInterval(() => {
-      setStatus(statuses[i]);
-      i = (i + 1) % statuses.length;
-    }, 280);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <AnimatePresence>
       <motion.div 
@@ -47,8 +28,8 @@ const Loading = () => {
                     className="absolute inset-0 bg-black w-full"
                 />
           </div>
-          <p className="text-[9px] font-bold uppercase tracking-[0.6em] text-black/30 font-outfit mt-2 min-h-[15px] text-center">
-            {status}...
+          <p className="text-[9px] font-black uppercase tracking-[0.4em] text-black/60 font-outfit mt-4 animate-pulse text-center">
+            Personalizing content...
           </p>
         </motion.div>
       </motion.div>
