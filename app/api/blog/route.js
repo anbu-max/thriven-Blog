@@ -1,23 +1,45 @@
 import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
-import ConnectDB from "@/lib/config/ConnectDB";
-import BlogModel from "@/lib/model/BlogModel";
+import fs from "fs";
+import path from "path";
+
+const filePath = path.resolve(process.cwd(), "blogs_data.json");
+
+async function readBlogsFile() {
+  try {
+    const fileContent = await fs.promises.readFile(filePath, "utf16le");
+    const cleanContent = fileContent.replace(/^\ufeff/, "");
+    const data = JSON.parse(cleanContent);
+    return data.blogs || [];
+  } catch (error) {
+    console.error("Error reading blogs file:", error);
+    return [];
+  }
+}
+
+async function writeBlogsFile(blogs) {
+  const contentToWrite = "\ufeff" + JSON.stringify({ blogs }, null, 2);
+  await fs.promises.writeFile(filePath, contentToWrite, "utf16le");
+}
+
+const generateHexId = () => {
+  return Array.from({ length: 24 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+};
 
 export async function GET(request) {
   try {
-    await ConnectDB();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
+    const blogs = await readBlogsFile();
 
     if (id) {
-        const blog = await BlogModel.findById(id);
+        const blog = blogs.find(b => String(b._id) === String(id));
         if (!blog) {
             return NextResponse.json({ error: "Blog not found" }, { status: 404 });
         }
         return NextResponse.json(blog);
     }
 
-    const blogs = await BlogModel.find({});
     return NextResponse.json({ blogs });
   } catch (error) {
     console.error("GET API Error:", error);
@@ -27,8 +49,6 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
-    await ConnectDB();
-
     const formData = await request.formData();
     const title = formData.get("title");
     const description = formData.get("description");
@@ -51,33 +71,30 @@ export async function POST(request) {
     });
     const blogImgUrl = blob.url;
 
-    // save to Mongo
-    const blogData = {
+    // save locally
+    const blogs = await readBlogsFile();
+    const newBlog = {
+      _id: generateHexId(),
       title,
       description,
       category,
       author,
       image: blogImgUrl,
+      date: new Date().toISOString(),
     };
     
-    const newBlog = new BlogModel(blogData);
-    await newBlog.save();
+    blogs.push(newBlog);
+    await writeBlogsFile(blogs);
 
     return NextResponse.json({ msg: "Blog Published Successfully!", blog: newBlog });
   } catch (err) {
     console.error("POST API Error:", err);
-    const isConnError = err.message.includes('ENOTFOUND') || err.message.includes('timeout');
-    const userMsg = isConnError 
-        ? "Database Connection Failed. Check your internet or MongoDB URI." 
-        : `Server Error: ${err.message}`;
-
-    return NextResponse.json({ error: userMsg }, { status: 500 });
+    return NextResponse.json({ error: `Server Error: ${err.message}` }, { status: 500 });
   }
 }
 
 export async function DELETE(request) {
     try {
-        await ConnectDB();
         const { searchParams } = new URL(request.url);
         const id = searchParams.get('id');
 
@@ -85,7 +102,15 @@ export async function DELETE(request) {
             return NextResponse.json({ error: "Blog ID is required" }, { status: 400 });
         }
 
-        await BlogModel.findByIdAndDelete(id);
+        const blogs = await readBlogsFile();
+        const initialLength = blogs.length;
+        const filteredBlogs = blogs.filter(b => String(b._id) !== String(id));
+
+        if (filteredBlogs.length === initialLength) {
+            return NextResponse.json({ error: "Blog not found" }, { status: 404 });
+        }
+
+        await writeBlogsFile(filteredBlogs);
         return NextResponse.json({ msg: "Blog Deleted Successfully!" });
     } catch (error) {
         console.error("DELETE API Error:", error);
@@ -96,7 +121,6 @@ export async function DELETE(request) {
 
 export async function PUT(request) {
     try {
-        await ConnectDB();
         const formData = await request.formData();
         const id = formData.get("id");
         const title = formData.get("title");
@@ -107,10 +131,18 @@ export async function PUT(request) {
 
         if (!id) return NextResponse.json({ error: "Blog ID is required" }, { status: 400 });
 
-        const blog = await BlogModel.findById(id);
-        if (!blog) return NextResponse.json({ error: "Blog not found" }, { status: 404 });
+        const blogs = await readBlogsFile();
+        const blogIndex = blogs.findIndex(b => String(b._id) === String(id));
+        if (blogIndex === -1) return NextResponse.json({ error: "Blog not found" }, { status: 404 });
 
-        const updateData = { title, description, category, author };
+        const blog = blogs[blogIndex];
+        const updateData = {
+          ...blog,
+          title: title || blog.title,
+          description: description || blog.description,
+          category: category || blog.category,
+          author: author || blog.author,
+        };
 
         // Handle Thumbnail Update
         if (image && typeof image !== "string") {
@@ -121,10 +153,13 @@ export async function PUT(request) {
             updateData.image = blob.url;
         }
 
-        await BlogModel.findByIdAndUpdate(id, updateData);
+        blogs[blogIndex] = updateData;
+        await writeBlogsFile(blogs);
+
         return NextResponse.json({ msg: "Blog Updated Successfully!" });
     } catch (error) {
         console.error("PUT API Error:", error);
         return NextResponse.json({ error: "Failed to update blog" }, { status: 500 });
     }
 }
+

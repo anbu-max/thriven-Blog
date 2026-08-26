@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
-import ConnectDB from "@/lib/config/ConnectDB";
+import fs from "fs";
+import path from "path";
 
 export async function GET() {
     try {
-        await ConnectDB();
-        return NextResponse.json({ status: "Connected", uri_prefix: process.env.MONGODB_URI?.substring(0, 15) });
+        const filePath = path.resolve(process.cwd(), "blogs_data.json");
+        await fs.promises.access(filePath, fs.constants.R_OK | fs.constants.W_OK);
+        return NextResponse.json({ status: "Connected", storage: "local_json" });
     } catch (error) {
         return NextResponse.json({ status: "Error", message: error.message }, { status: 500 });
     }
 }
+

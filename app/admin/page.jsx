@@ -22,7 +22,7 @@ const AdminPage = () => {
   const [data, setData] = useState({
     title: "",
     description: "",
-    category: "Startup",
+    category: "Tech & AI",
     author: "Anbu Selvan",
   });
 
@@ -50,7 +50,7 @@ const AdminPage = () => {
 
   // Derived filter options
   const authors = ["All", ...new Set(blogs.map(b => b.author))];
-  const categories = ["All", "Startup", "Tech", "Philosophy", "Anime", "Stories"];
+  const categories = ["All", "Tech & AI", "Philosophy", "Startup & Business", "Consciousness"];
   const years = ["All", ...new Set(blogs.map(b => new Date(b.date).getFullYear().toString()))];
 
   const filteredBlogs = blogs.filter(blog => {
@@ -117,7 +117,7 @@ const AdminPage = () => {
         setData({
           title: "",
           description: "",
-          category: "Startup",
+          category: "Tech & AI",
           author: "Anbu Selvan",
         });
         if (editId) setActiveTab("manage");
@@ -238,7 +238,7 @@ const AdminPage = () => {
                     setActiveTab("manage");
                     if (editId) {
                     setEditId(null);
-                    setData({ title: "", description: "", category: "Startup", author: "Anbu Selvan" });
+                    setData({ title: "", description: "", category: "Tech & AI", author: "Anbu Selvan" });
                     setImage(false);
                     }
                 }}
@@ -276,7 +276,7 @@ const AdminPage = () => {
             {editId && (
                 <div className="mb-10 flex justify-between items-center bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
                     <p className="text-indigo-600 font-bold text-[10px] uppercase tracking-[0.5em]">System Editing Active</p>
-                    <button type="button" onClick={() => {setEditId(null); setImage(false); setData({title: "", description: "", category: "Startup", author: "Anbu Selvan"}); setActiveTab("manage");}} className="text-indigo-600 hover:underline text-[10px] font-bold uppercase tracking-widest">Abort Edit</button>
+                    <button type="button" onClick={() => {setEditId(null); setImage(false); setData({title: "", description: "", category: "Tech & AI", author: "Anbu Selvan"}); setActiveTab("manage");}} className="text-indigo-600 hover:underline text-[10px] font-bold uppercase tracking-widest">Abort Edit</button>
                 </div>
             )}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">

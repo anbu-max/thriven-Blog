@@ -1,8 +1,27 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Loading = () => {
+  const [status, setStatus] = useState("Thinking");
+
+  useEffect(() => {
+    const statuses = [
+      "Thinking",
+      "Planning",
+      "Analyzing",
+      "Synthesizing",
+      "Optimizing Context",
+      "Loading Stories"
+    ];
+    let i = 0;
+    const interval = setInterval(() => {
+      setStatus(statuses[i]);
+      i = (i + 1) % statuses.length;
+    }, 280);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <AnimatePresence>
       <motion.div 
@@ -16,7 +35,7 @@ const Loading = () => {
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
-          className="flex flex-col items-center gap-12"
+          className="flex flex-col items-center gap-6"
         >
           <h1 className="text-4xl font-light uppercase tracking-[0.5em] text-black font-outfit">
             Thriven<span className="text-gray-200">.</span>
@@ -28,6 +47,9 @@ const Loading = () => {
                     className="absolute inset-0 bg-black w-full"
                 />
           </div>
+          <p className="text-[9px] font-bold uppercase tracking-[0.6em] text-black/30 font-outfit mt-2 min-h-[15px] text-center">
+            {status}...
+          </p>
         </motion.div>
       </motion.div>
     </AnimatePresence>
@@ -35,3 +57,4 @@ const Loading = () => {
 };
 
 export default Loading;
+

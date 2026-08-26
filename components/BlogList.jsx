@@ -11,7 +11,7 @@ const BlogList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 12;
 
-    const categories = ["All", "Tech", "Philosophy", "Startup", "Anime", "Stories"];
+    const categories = ["All", "Tech & AI", "Philosophy", "Startup & Business", "Consciousness"];
 
     const fetchBlogs = async () => {
         setLoading(true);

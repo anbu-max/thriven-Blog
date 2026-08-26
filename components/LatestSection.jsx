@@ -124,25 +124,25 @@ const LatestSection = () => {
                     </div>
 
                     {/* 3. Popular Section (Right - Expanded) */}
-                    <div className="lg:col-span-3 bg-gray-50/5 p-6 flex flex-col pt-0">
-                        <h2 className="text-[11px] font-bold uppercase tracking-[0.5em] text-black mb-10 flex items-center gap-3 h-[45px] border-b border-black/5">
+                    <div className="hidden lg:flex lg:col-span-3 bg-gray-50/5 p-6 flex-col pt-0">
+                        <h2 className="text-[11px] lg:text-[13px] font-bold uppercase tracking-[0.5em] text-black mb-10 flex items-center gap-3 h-[45px] border-b border-black/5">
                             <div className="w-2.5 h-2.5 bg-black"></div>
                             Popular
                         </h2>
                         
-                        <div className="flex flex-col gap-6">
+                        <div className="flex flex-col gap-6 lg:gap-8">
                             {headlines.map((blog) => (
                                 <div key={blog._id} className="group relative">
                                     <div className="flex items-center gap-2 mb-1.5">
                                          <div className="w-1.5 h-[2px] bg-black group-hover:w-3 transition-all"></div>
-                                         <span className="text-[8px] font-black uppercase tracking-widest text-black">{blog.category}</span>
+                                         <span className="text-[8px] lg:text-[10px] font-black uppercase tracking-widest text-black">{blog.category}</span>
                                     </div>
                                     <Link href={`/blogs/${blog._id}`}>
-                                        <h4 className="text-[14px] font-bold leading-tight text-black group-hover:underline underline-offset-2 decoration-1 transition-all uppercase tracking-tighter">
+                                        <h4 className="text-[14px] lg:text-[18px] lg:leading-[1.2] font-bold leading-tight text-black group-hover:underline underline-offset-2 decoration-1 transition-all uppercase tracking-tighter">
                                             {blog.title}
                                         </h4>
                                     </Link>
-                                    <p className="text-[8px] font-black uppercase tracking-widest text-black mt-2.5">
+                                    <p className="text-[8px] lg:text-[10px] font-black uppercase tracking-widest text-black mt-2.5">
                                         {new Date(blog.date).toLocaleDateString()}
                                     </p>
                                 </div>

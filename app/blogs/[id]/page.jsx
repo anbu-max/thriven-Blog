@@ -12,6 +12,25 @@ const Page = ({ params }) => {
   const [data, setData] = useState(null);
   const [nextBlog, setNextBlog] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState("Thinking");
+
+  useEffect(() => {
+    if (!loading) return;
+    const statuses = [
+      "Thinking",
+      "Planning",
+      "Analyzing",
+      "Synthesizing",
+      "Optimizing Context",
+      "Loading Stories"
+    ];
+    let i = 0;
+    const interval = setInterval(() => {
+      setStatus(statuses[i]);
+      i = (i + 1) % statuses.length;
+    }, 280);
+    return () => clearInterval(interval);
+  }, [loading]);
 
   const fetchBlogData = async () => {
     if (!unwrappedParams.id) return;
@@ -82,7 +101,7 @@ const Page = ({ params }) => {
                 </motion.div>
                 
                 <div className="flex flex-col items-center gap-4">
-                    <p className="text-[10px] font-black uppercase tracking-[0.8em] text-black/30">Be Mindful</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.8em] text-black/30 min-h-[15px] text-center">{status}</p>
                     <div className="w-40 h-[1px] bg-black/5 relative overflow-hidden">
                         <motion.div 
                             initial={{ x: "-100%" }}
