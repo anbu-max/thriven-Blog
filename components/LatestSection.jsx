@@ -55,6 +55,7 @@ const LatestSection = () => {
                 <div className="flex items-center gap-10">
                     <div className="flex gap-10 text-[14px] font-bold uppercase tracking-tight leading-none font-outfit">
                         <Link href="/" className="text-black hover:opacity-50 transition-all">Home</Link>
+                        <Link href="/about" className="text-black hover:opacity-50 transition-all">About</Link>
                         <Link href="/admin" className="text-black hover:opacity-50 transition-all">Admin</Link>
                     </div>
                 </div>
